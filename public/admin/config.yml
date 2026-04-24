@@ -2,8 +2,6 @@ backend:
   name: github
   repo: hugojavierpino/javierpino
   branch: main
-  auth_type: implicit
-  app_id: Ov23liou7LpHTGFDXL6m
 
 media_folder: public/images
 public_folder: /images
