@@ -7,3 +7,28 @@ backend:
 
 media_folder: public/images
 public_folder: /images
+
+collections:
+  - name: articulos
+    label: Artículos
+    folder: src/content/articulos
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Fecha, name: date, widget: datetime }
+      - { label: Categoría, name: categoria, widget: select, options: ["Teología Sistemática", "Predicación", "Vida Cristiana", "Historia de la Iglesia"] }
+      - { label: Resumen, name: resumen, widget: text }
+      - { label: Contenido, name: body, widget: markdown }
+
+  - name: sermones
+    label: Sermones
+    folder: src/content/sermones
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Fecha, name: date, widget: datetime }
+      - { label: Pasaje Bíblico, name: pasaje, widget: string }
+      - { label: URL YouTube, name: youtube, widget: string, required: false }
+      - { label: Contenido, name: body, widget: markdown }
