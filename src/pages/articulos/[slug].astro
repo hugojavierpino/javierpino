@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articulos = await getCollection('articulos');
+  return articulos.map(art => ({
+    params: { slug: art.slug },
+    props: { art },
+  }));
+}
+
+const { art } = Astro.props;
+const { Content } = await art.render();
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{art.data.title} — Javier Pino</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:#fff;color:#222}
+    .nav{background:#0D1B3E;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+    .nav a{color:#fff;text-decoration:none;font-size:.85rem}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900}
+    .container{max-width:720px;margin:0 auto;padding:3rem 2rem 5rem}
+    .cat{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B8960C;margin-bottom:1rem}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:1.1;color:#0D1B3E;margin-bottom:1rem;letter-spacing:-0.02em}
+    .meta{font-size:.78rem;color:#888;padding-bottom:2rem;border-bottom:1px solid #E2E2E2;margin-bottom:2rem}
+    .resumen{font-size:1.1rem;color:#444;line-height:1.75;font-style:italic;border-left:3px solid #B8960C;padding-left:1.25rem;margin-bottom:2.5rem}
+    .content{font-family:'Source Serif 4',serif;font-size:1.05rem;line-height:1.85;color:#2C2C2C}
+    .content h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#0D1B3E;margin:2.5rem 0 1rem;letter-spacing:-0.01em}
+    .content h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#0D1B3E;margin:2rem 0 .75rem}
+    .content p{margin-bottom:1.5rem}
+    .content blockquote{border-left:3px solid #B8960C;padding-left:1.25rem;color:#555;font-style:italic;margin:2rem 0}
+    .content a{color:#0D1B3E;text-decoration:underline}
+    .content a:hover{color:#B8960C}
+    .back{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;color:#0D1B3E;text-decoration:none;margin-top:3rem;padding-top:2rem;border-top:1px solid #E2E2E2;font-weight:600}
+    .back:hover{color:#B8960C}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-logo">✦ Javier Pino</a>
+    <a href="/articulos">← Todos los artículos</a>
+  </nav>
+  <div class="container">
+    <div class="cat">{art.data.categoria}</div>
+    <h1>{art.data.title}</h1>
+    <div class="meta">{new Date(art.data.date).toLocaleDateString('es-AR', {year:'numeric',month:'long',day:'numeric'})}</div>
+    <p class="resumen">{art.data.resumen}</p>
+    <div class="content">
+      <Content />
+    </div>
+    <a href="/articulos" class="back">← Volver a los artículos</a>
+  </div>
+</body>
+</html>
