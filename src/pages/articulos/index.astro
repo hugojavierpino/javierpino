@@ -11,53 +11,33 @@ const sorted = articulos.sort((a, b) => new Date(b.data.date).getTime() - new Da
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Artículos — Javier Pino</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'DM Sans',sans-serif;background:#fff;color:#222}
-    .nav{background:#0D1B3E;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
-    .nav a{color:#fff;text-decoration:none;font-size:.85rem}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900}
-    .container{max-width:800px;margin:0 auto;padding:3rem 2rem}
-    h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#0D1B3E;margin-bottom:.5rem}
+    body{font-family:sans-serif;background:#fff;color:#222;max-width:800px;margin:0 auto;padding:2rem}
+    h1{font-size:2rem;color:#0D1B3E;margin-bottom:.5rem}
     .subtitle{font-size:.9rem;color:#888;margin-bottom:3rem}
     .article-item{padding:2rem 0;border-bottom:1px solid #E2E2E2}
-    .article-item:last-child{border-bottom:none}
     .cat{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B8960C;margin-bottom:.5rem}
-    .article-item h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;line-height:1.2;color:#0D1B3E;margin-bottom:.5rem}
+    .article-item h2{font-size:1.4rem;color:#0D1B3E;margin-bottom:.5rem}
     .article-item h2 a{color:#0D1B3E;text-decoration:none}
     .article-item h2 a:hover{color:#B8960C}
     .article-item p{font-size:.9rem;color:#555;line-height:1.7;margin-bottom:.75rem}
     .meta{font-size:.72rem;color:#888}
-    .empty{text-align:center;padding:4rem 0;color:#888}
-    .empty p{font-size:1rem;margin-bottom:.5rem}
-    .empty a{color:#0D1B3E;font-weight:600}
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <a href="/" class="nav-logo">✦ Javier Pino</a>
-    <a href="/">← Volver al inicio</a>
-  </nav>
-  <div class="container">
+  <a href="/" style="color:#0D1B3E;font-size:.85rem">✦ Javier Pino</a>
+  <div style="margin-top:2rem">
     <h1>Artículos</h1>
     <p class="subtitle">Reflexiones teológicas desde la tradición reformada</p>
-
-    {sorted.length === 0 ? (
-      <div class="empty">
-        <p>Todavía no hay artículos publicados.</p>
-        <p><a href="/admin">Publicar el primer artículo →</a></p>
+    {sorted.map(art => (
+      <div class="article-item">
+        <div class="cat">{art.data.categoria}</div>
+        <h2><a href={`/articulos/${art.id}`}>{art.data.title}</a></h2>
+        <p>{art.data.resumen}</p>
+        <div class="meta">{art.data.date.toLocaleDateString('es-AR')}</div>
       </div>
-    ) : (
-      sorted.map(art => (
-        <div class="article-item">
-          <div class="cat">{art.data.categoria}</div>
-          <h2><a href={`/articulos/${art.slug}`}>{art.data.title}</a></h2>
-          <p>{art.data.resumen}</p>
-          <div class="meta">{new Date(art.data.date).toLocaleDateString('es-AR', {year:'numeric',month:'long',day:'numeric'})}</div>
-        </div>
-      ))
-    )}
+    ))}
   </div>
 </body>
 </html>
