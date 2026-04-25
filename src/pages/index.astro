@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 // Obtener artículos ordenados por fecha
 const allArticulos = await getCollection('articulos');
 const articulos = allArticulos
-  .sort((a, b) => new Date(b.data.fecha).getTime() - new Date(a.data.fecha).getTime())
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 6);
 
 const heroArticulos = articulos.slice(0, 3);
@@ -41,18 +41,18 @@ function leerMin(contenido: string) {
           <div class={`hero-slide ${i === 0 ? 'active' : ''}`}>
             <div class="hero-content">
               <div class="hero-eyebrow">{art.data.categoria ?? 'Artículo destacado'}</div>
-              <h1>{art.data.titulo}</h1>
-              <p class="hero-excerpt">{art.data.descripcion}</p>
+              <h1>{art.data.title}</h1>
+              <p class="hero-excerpt">{art.data.resumen}</p>
               <div class="hero-meta">
-                <span>{formatFecha(art.data.fecha)}</span>
+                <span>{formatFecha(art.data.date)}</span>
                 <span class="dot">·</span>
                 <span>{leerMin(art.body)} min de lectura</span>
               </div>
-              <a href={`/articulos/${art.slug}`} class="btn">Leer artículo →</a>
+              <a href={`/articulos/${art.id}`} class="btn">Leer artículo →</a>
             </div>
             <div class="hero-img">
               {art.data.imagen
-                ? <img src={art.data.imagen} alt={art.data.titulo} loading={i === 0 ? 'eager' : 'lazy'} />
+                ? <img src={art.data.imagen} alt={art.data.title} loading={i === 0 ? 'eager' : 'lazy'} />
                 : (
                   <div class="hero-img-placeholder">
                     <div class="ph-label">javierpino.org</div>
@@ -124,18 +124,18 @@ function leerMin(contenido: string) {
             <div class="featured">
               <div class="feat-img">
                 {listaArticulos[0].data.imagen
-                  ? <img src={listaArticulos[0].data.imagen} alt={listaArticulos[0].data.titulo} loading="lazy" />
+                  ? <img src={listaArticulos[0].data.imagen} alt={listaArticulos[0].data.title} loading="lazy" />
                   : <div class="ph-icon">📖</div>
                 }
               </div>
               <div>
                 <div class="cat-label">{listaArticulos[0].data.categoria ?? 'Artículo'}</div>
                 <h3>
-                  <a href={`/articulos/${listaArticulos[0].slug}`}>{listaArticulos[0].data.titulo}</a>
+                  <a href={`/articulos/${listaArticulos[0].id}`}>{listaArticulos[0].data.title}</a>
                 </h3>
-                <p>{listaArticulos[0].data.descripcion}</p>
+                <p>{listaArticulos[0].data.resumen}</p>
                 <div class="meta">
-                  <span>{formatFecha(listaArticulos[0].data.fecha)}</span>
+                  <span>{formatFecha(listaArticulos[0].data.date)}</span>
                   <span>·</span>
                   <span>{leerMin(listaArticulos[0].body)} min</span>
                 </div>
@@ -149,16 +149,16 @@ function leerMin(contenido: string) {
               <div class="art-item">
                 <div class="art-thumb">
                   {art.data.imagen
-                    ? <img src={art.data.imagen} alt={art.data.titulo} loading="lazy" />
+                    ? <img src={art.data.imagen} alt={art.data.title} loading="lazy" />
                     : <span>📖</span>
                   }
                 </div>
                 <div>
                   <div class="cat-label">{art.data.categoria ?? 'Artículo'}</div>
-                  <h4><a href={`/articulos/${art.slug}`}>{art.data.titulo}</a></h4>
-                  <p>{art.data.descripcion}</p>
+                  <h4><a href={`/articulos/${art.id}`}>{art.data.title}</a></h4>
+                  <p>{art.data.resumen}</p>
                   <div class="meta">
-                    <span>{formatFecha(art.data.fecha)}</span>
+                    <span>{formatFecha(art.data.date)}</span>
                     <span>·</span>
                     <span>{leerMin(art.body)} min</span>
                   </div>
@@ -211,8 +211,8 @@ function leerMin(contenido: string) {
           <div class="widget-title">Artículos recientes</div>
           {articulos.slice(0, 4).map((art) => (
             <div class="sb-art">
-              <h5><a href={`/articulos/${art.slug}`}>{art.data.titulo}</a></h5>
-              <span>{formatFecha(art.data.fecha)}</span>
+              <h5><a href={`/articulos/${art.id}`}>{art.data.title}</a></h5>
+              <span>{formatFecha(art.data.date)}</span>
             </div>
           ))}
         </div>

@@ -1,0 +1,246 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Libros — Javier Pino"
+  description="Libros digitales de teología reformada, vida cristiana y predicación por Javier Pino."
+>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-eyebrow">javierpino.org</div>
+      <h1>Libros</h1>
+      <p>Teología reformada para la iglesia latinoamericana</p>
+    </div>
+  </div>
+
+  <div class="libros-layout">
+
+    <!-- PRÓXIMAMENTE -->
+    <div class="coming-soon">
+      <div class="cs-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+        </svg>
+      </div>
+      <h2>Próximamente disponibles</h2>
+      <p>
+        Estoy preparando una serie de libros digitales sobre teología reformada,
+        predicación expositiva y vida cristiana para la iglesia en América Latina.
+      </p>
+      <p>
+        Suscribite al newsletter para recibir el aviso cuando estén disponibles,
+        incluyendo acceso anticipado y precio de lanzamiento.
+      </p>
+      <div class="cs-actions">
+        <a href="/#contacto" class="btn">Suscribirme →</a>
+        <a href="/articulos" class="btn btn-outline">Leer artículos →</a>
+      </div>
+    </div>
+
+    <!-- PREVIEW LIBROS -->
+    <div class="preview-section">
+      <div class="sh">
+        <span>Títulos en preparación</span>
+      </div>
+      <div class="libros-grid">
+
+        <div class="libro-card preview">
+          <div class="libro-cover">
+            <div class="cover-inner">
+              <div class="cover-label">Teología Sistemática</div>
+              <div class="cover-title">Las Doctrinas de la Gracia</div>
+              <div class="cover-author">Javier Pino</div>
+            </div>
+            <div class="cover-badge">En preparación</div>
+          </div>
+          <div class="libro-body">
+            <div class="libro-cat">Teología Sistemática</div>
+            <h4>Las Doctrinas de la Gracia</h4>
+            <p>Un estudio sistemático de la soberanía de Dios en la salvación desde las Escrituras y la Confesión Bautista de 1689.</p>
+          </div>
+        </div>
+
+        <div class="libro-card preview">
+          <div class="libro-cover">
+            <div class="cover-inner">
+              <div class="cover-label">Predicación</div>
+              <div class="cover-title">El Púlpito y la Palabra</div>
+              <div class="cover-author">Javier Pino</div>
+            </div>
+            <div class="cover-badge">En preparación</div>
+          </div>
+          <div class="libro-body">
+            <div class="libro-cat">Homilética</div>
+            <h4>El Púlpito y la Palabra</h4>
+            <p>Reflexiones sobre la predicación expositiva fiel: su teología, su método y su urgencia para la iglesia reformada hoy.</p>
+          </div>
+        </div>
+
+        <div class="libro-card preview">
+          <div class="libro-cover cover-alt">
+            <div class="cover-inner">
+              <div class="cover-label">Vida Cristiana</div>
+              <div class="cover-title">Vivir Coram Deo</div>
+              <div class="cover-author">Javier Pino</div>
+            </div>
+            <div class="cover-badge">En preparación</div>
+          </div>
+          <div class="libro-body">
+            <div class="libro-cat">Vida Cristiana</div>
+            <h4>Vivir Coram Deo</h4>
+            <p>La vida cristiana como vida vivida delante de Dios: disciplina, oración, comunidad y esperanza en la teología reformada.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA NEWSLETTER -->
+    <div class="newsletter-box">
+      <div class="nl-inner">
+        <div class="nl-text">
+          <h3>Acceso anticipado</h3>
+          <p>Los suscriptores del newsletter reciben los libros antes del lanzamiento oficial y a precio especial.</p>
+        </div>
+        <div class="nl-form">
+          <input type="email" placeholder="Tu email..." aria-label="Email" />
+          <button type="button">Quiero acceso anticipado →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</Layout>
+
+<style>
+  .page-header {
+    background: var(--navy);
+    border-bottom: 2px solid var(--gold);
+    padding: 3rem 2rem;
+  }
+  .page-header-inner { max-width: var(--max); margin: 0 auto; }
+  .page-eyebrow {
+    font-size: .65rem; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: .75rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .page-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+  .page-header h1 {
+    font-family: var(--fd); font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900; color: white; letter-spacing: -0.02em;
+    line-height: 1.1; margin-bottom: .5rem;
+  }
+  .page-header p { font-size: .9rem; color: rgba(255,255,255,.55); font-style: italic; }
+
+  .libros-layout {
+    max-width: var(--max); margin: 0 auto; padding: 3.5rem 2rem 5rem;
+  }
+
+  /* COMING SOON */
+  .coming-soon {
+    text-align: center; padding: 4rem 2rem; border: 1px solid var(--line);
+    background: var(--off); margin-bottom: 3.5rem;
+  }
+  .cs-icon { color: var(--gold); margin-bottom: 1.25rem; opacity: .6; }
+  .coming-soon h2 {
+    font-family: var(--fd); font-size: 1.6rem; font-weight: 700;
+    color: var(--navy); margin-bottom: 1rem;
+  }
+  .coming-soon p {
+    font-size: .92rem; color: var(--ink2); line-height: 1.8;
+    max-width: 540px; margin: 0 auto .75rem;
+  }
+  .cs-actions {
+    display: flex; gap: 1rem; justify-content: center;
+    margin-top: 1.75rem; flex-wrap: wrap;
+  }
+
+  /* GRID PREVIEW */
+  .preview-section { margin-bottom: 3.5rem; }
+  .sh {
+    border-bottom: 2px solid var(--navy); padding-bottom: .45rem; margin-bottom: 1.75rem;
+  }
+  .sh span {
+    font-family: var(--fs); font-size: .68rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--navy);
+  }
+  .libros-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .libro-card { border: 1px solid var(--line); opacity: .75; }
+  .libro-cover {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy2) 100%);
+    aspect-ratio: 2/3;
+    display: flex; align-items: flex-end;
+    padding: 1.25rem; position: relative;
+    max-height: 240px;
+  }
+  .libro-cover.cover-alt {
+    background: linear-gradient(160deg, #1a2d1a 0%, #2d4a2d 60%, rgba(184,150,12,.3) 100%);
+  }
+  .cover-inner { width: 100%; }
+  .cover-label {
+    font-size: .5rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: .4rem;
+  }
+  .cover-title {
+    font-family: var(--fd); font-size: .95rem; font-weight: 900;
+    color: white; line-height: 1.2; margin-bottom: .35rem;
+  }
+  .cover-author {
+    font-size: .6rem; color: rgba(255,255,255,.4);
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .cover-badge {
+    position: absolute; top: .75rem; right: .75rem;
+    background: var(--gold); color: white;
+    font-size: .5rem; font-weight: 700;
+    letter-spacing: .07em; text-transform: uppercase; padding: .2rem .5rem;
+  }
+  .libro-body { padding: 1.1rem; }
+  .libro-cat {
+    font-size: .6rem; color: var(--gold); font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; margin-bottom: .35rem;
+  }
+  .libro-body h4 {
+    font-family: var(--fd); font-size: .95rem; font-weight: 700;
+    color: var(--navy); margin-bottom: .4rem; line-height: 1.3;
+  }
+  .libro-body p {
+    font-size: .78rem; color: var(--ink2); line-height: 1.65;
+  }
+
+  /* NEWSLETTER */
+  .newsletter-box { background: var(--navy); }
+  .nl-inner {
+    padding: 2.5rem 2rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center;
+  }
+  .nl-text h3 { font-family: var(--fd); font-size: 1.2rem; color: white; margin-bottom: .5rem; }
+  .nl-text p { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.7; }
+  .nl-form { display: flex; gap: .5rem; }
+  .nl-form input {
+    flex: 1; padding: .65rem 1rem; font-size: .85rem;
+    border: 1px solid rgba(255,255,255,.2);
+    background: rgba(255,255,255,.08); color: white; outline: none; font-family: var(--fs);
+  }
+  .nl-form input::placeholder { color: rgba(255,255,255,.3); }
+  .nl-form button {
+    padding: .65rem 1.25rem; background: var(--gold); color: white;
+    border: none; font-size: .75rem; font-weight: 600; cursor: pointer;
+    font-family: var(--fs); white-space: nowrap; transition: background .2s;
+  }
+  .nl-form button:hover { background: var(--gold-light); }
+
+  @media (max-width: 900px) {
+    .libros-grid { grid-template-columns: 1fr 1fr; }
+    .nl-inner { grid-template-columns: 1fr; }
+    .nl-form { flex-direction: column; }
+  }
+  @media (max-width: 580px) {
+    .libros-grid { grid-template-columns: 1fr; }
+  }
+</style>
