@@ -1,19 +1,252 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allArticulos = await getCollection('articulos');
+const articulos = allArticulos
+  .filter(a => !a.data.draft)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const categorias = [...new Set(articulos.map(a => a.data.categoria).filter(Boolean))];
+
+function formatFecha(fecha: Date) {
+  return fecha.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+function leerMin(contenido: string) {
+  return Math.max(1, Math.ceil((contenido?.split(' ').length ?? 200) / 200));
+}
 ---
-<Layout title="Artículos — Javier Pino" description="Reflexiones bíblicas, teología reformada y vida cristiana.">
+
+<Layout title="Artículos — Javier Pino" description="Reflexiones bíblicas, teología reformada y vida cristiana desde Neuquén, Argentina.">
+
   <div class="page-header">
-    <div class="inner">
-      <div class="eyebrow">javierpino.org</div>
+    <div class="page-header-inner">
+      <div class="page-eyebrow">javierpino.org</div>
       <h1>Artículos</h1>
-      <p>Próximamente</p>
+      <p>Reflexiones bíblicas, teología reformada y vida cristiana</p>
     </div>
   </div>
+
+  {categorias.length > 1 && (
+    <div class="filter-bar">
+      <div class="filter-inner">
+        <button class="pill active" data-cat="todos">Todos</button>
+        {categorias.map(cat => (
+          <button class="pill" data-cat={cat}>{cat}</button>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <div class="layout">
+    <main>
+      {articulos.length === 0 ? (
+        <div class="empty">
+          <h3>Aún no hay artículos publicados</h3>
+          <p>Los artículos aparecerán aquí a medida que los publiques con <code>/publicar</code>.</p>
+          <a href="/" class="btn" style="margin-top:1rem">Volver al inicio →</a>
+        </div>
+      ) : (
+        <div class="art-grid" id="articulos-grid">
+          {articulos.map((art, i) => (
+            <article class={`art-card${i === 0 ? ' featured' : ''}`} data-cat={art.data.categoria}>
+              <a href={`/articulos/${art.id}`} class="art-card-img-link" tabindex="-1">
+                <div class="art-card-img">
+                  {art.data.imagen
+                    ? <img src={art.data.imagen} alt={art.data.title} loading={i === 0 ? 'eager' : 'lazy'} />
+                    : <div class="art-card-placeholder"><span>JP</span></div>
+                  }
+                </div>
+              </a>
+              <div class="art-card-body">
+                <div class="cat-label">{art.data.categoria}</div>
+                <h2 class="art-card-title">
+                  <a href={`/articulos/${art.id}`}>{art.data.title}</a>
+                </h2>
+                {art.data.resumen && <p class="art-card-excerpt">{art.data.resumen}</p>}
+                <div class="meta">
+                  <span>{formatFecha(art.data.date)}</span>
+                  <span>·</span>
+                  <span>{leerMin(art.body)} min de lectura</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </main>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <div class="sub-box">
+          <h4>Newsletter</h4>
+          <p>Recibí los nuevos artículos en tu correo.</p>
+          <input type="email" placeholder="Tu email..." aria-label="Email" />
+          <button type="button">Suscribirme →</button>
+        </div>
+      </div>
+
+      {categorias.length > 0 && (
+        <div class="widget">
+          <div class="widget-title">Categorías</div>
+          <div class="cats">
+            {categorias.map(cat => (
+              <a href={`/articulos?cat=${cat}`} class="cat-pill">{cat}</a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="widget">
+        <div class="widget-title">Sobre el autor</div>
+        <div class="about-mini">
+          <div class="about-mini-avatar">JP</div>
+          <div>
+            <strong>Javier Pino</strong>
+            <p>Pastor bautista reformado, teólogo. Neuquén, Argentina.</p>
+            <a href="/sobre-mi">Leer más →</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
 </Layout>
+
 <style>
-  .page-header { background: var(--navy); border-bottom: 2px solid var(--gold); padding: 5rem 2rem; }
-  .inner { max-width: 720px; margin: 0 auto; }
-  .eyebrow { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem; }
-  h1 { font-family: var(--fd); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: white; margin-bottom: .75rem; }
-  p { color: rgba(255,255,255,.5); font-style: italic; }
+  .page-header { background: var(--navy); border-bottom: 2px solid var(--gold); padding: 3.5rem 2rem; }
+  .page-header-inner { max-width: var(--max); margin: 0 auto; }
+  .page-eyebrow {
+    font-size: .65rem; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: .75rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .page-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+  .page-header h1 {
+    font-family: var(--fd); font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900; color: white; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: .5rem;
+  }
+  .page-header p { font-size: .9rem; color: rgba(255,255,255,.55); font-style: italic; }
+
+  .filter-bar { border-bottom: 1px solid var(--line); background: var(--off); }
+  .filter-inner {
+    max-width: var(--max); margin: 0 auto;
+    padding: .85rem 2rem; display: flex; flex-wrap: wrap; gap: .5rem;
+  }
+  .pill {
+    font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    border: 1px solid var(--line2); color: var(--ink2); background: white;
+    padding: .35rem .8rem; cursor: pointer; transition: all .2s; font-family: var(--fs);
+  }
+  .pill:hover, .pill.active { background: var(--navy); border-color: var(--navy); color: white; }
+
+  .layout {
+    max-width: var(--max); margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    display: grid; grid-template-columns: 1fr 270px; gap: 3.5rem;
+  }
+
+  .art-grid { display: flex; flex-direction: column; }
+  .art-card {
+    display: grid; grid-template-columns: 130px 1fr;
+    gap: 1.5rem; padding: 1.75rem 0;
+    border-bottom: 1px solid var(--line); align-items: start;
+  }
+  .art-card:last-child { border-bottom: none; }
+  .art-card.featured { grid-template-columns: 1fr; gap: 1.25rem; padding-bottom: 2rem; }
+  .art-card.featured .art-card-img { aspect-ratio: 16/7; max-height: 320px; }
+  .art-card.featured .art-card-title { font-size: 1.6rem; }
+  .art-card.hidden { display: none; }
+
+  .art-card-img-link { display: block; }
+  .art-card-img {
+    background: var(--off); border: 1px solid var(--line);
+    aspect-ratio: 4/3; overflow: hidden; transition: opacity .2s;
+  }
+  .art-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .art-card:hover .art-card-img img { transform: scale(1.03); }
+  .art-card-placeholder {
+    width: 100%; height: 100%; min-height: 100px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 65%, rgba(184,150,12,.35) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--fd); font-size: 1.5rem; font-weight: 900;
+    color: rgba(255,255,255,.12); letter-spacing: .05em;
+  }
+
+  .art-card-title {
+    font-family: var(--fd); font-size: 1.1rem; font-weight: 700;
+    line-height: 1.2; color: var(--navy); margin-bottom: .5rem; margin-top: .1rem;
+  }
+  .art-card-title a { color: var(--navy); }
+  .art-card-title a:hover { color: var(--gold); }
+  .art-card-excerpt { font-size: .85rem; color: var(--ink2); line-height: 1.7; margin-bottom: .5rem; }
+
+  .sidebar { display: flex; flex-direction: column; gap: 2rem; }
+  .widget-title {
+    font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--navy); border-bottom: 2px solid var(--navy); padding-bottom: .4rem; margin-bottom: 1rem;
+  }
+  .sub-box { background: var(--navy); padding: 1.5rem; color: white; }
+  .sub-box h4 { font-family: var(--fd); font-size: 1rem; color: white; margin-bottom: .4rem; }
+  .sub-box p { font-size: .78rem; color: rgba(255,255,255,.65); line-height: 1.6; margin-bottom: .85rem; }
+  .sub-box input {
+    width: 100%; padding: .5rem .75rem; font-size: .8rem;
+    border: none; border-bottom: 1px solid rgba(255,255,255,.3);
+    background: transparent; color: white; margin-bottom: .65rem;
+    outline: none; font-family: var(--fs);
+  }
+  .sub-box input::placeholder { color: rgba(255,255,255,.35); }
+  .sub-box button {
+    width: 100%; padding: .55rem; background: var(--gold); color: white;
+    border: none; font-size: .75rem; font-weight: 600; cursor: pointer;
+    font-family: var(--fs); transition: background .2s;
+  }
+  .sub-box button:hover { background: var(--gold-light); }
+
+  .cats { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .cat-pill {
+    font-size: .6rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    border: 1px solid var(--line); color: var(--ink2); padding: .3rem .65rem; transition: all .2s;
+  }
+  .cat-pill:hover { border-color: var(--navy); color: var(--navy); }
+
+  .about-mini { display: flex; gap: .85rem; align-items: flex-start; }
+  .about-mini-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--navy); color: white; display: flex; align-items: center;
+    justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0;
+  }
+  .about-mini strong { font-size: .85rem; color: var(--navy); display: block; margin-bottom: .2rem; }
+  .about-mini p { font-size: .78rem; color: var(--ink2); line-height: 1.5; margin-bottom: .4rem; }
+  .about-mini a { font-size: .72rem; color: var(--gold); font-weight: 600; }
+
+  .empty { padding: 4rem 2rem; text-align: center; border: 1px solid var(--line); color: var(--ink2); }
+  .empty h3 { font-family: var(--fd); color: var(--navy); margin-bottom: .75rem; }
+
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .art-card { grid-template-columns: 90px 1fr; }
+    .art-card.featured { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 580px) {
+    .art-card { grid-template-columns: 72px 1fr; gap: .85rem; }
+    .layout { padding: 2rem 1rem 4rem; }
+  }
 </style>
+
+<script>
+  const pills = document.querySelectorAll<HTMLButtonElement>('.pill');
+  const cards = document.querySelectorAll<HTMLElement>('.art-card');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const cat = pill.dataset.cat;
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      cards.forEach(card => {
+        const match = cat === 'todos' || card.dataset.cat === cat;
+        card.classList.toggle('hidden', !match);
+      });
+    });
+  });
+</script>
