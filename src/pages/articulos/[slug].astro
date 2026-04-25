@@ -13,115 +13,197 @@ export async function getStaticPaths() {
 const { art } = Astro.props;
 const { Content } = await render(art);
 
+const allArticulos = await getCollection('articulos');
+const sorted = allArticulos.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const idx = sorted.findIndex(a => a.id === art.id);
+const prevArt = idx < sorted.length - 1 ? sorted[idx + 1] : null;
+const nextArt = idx > 0 ? sorted[idx - 1] : null;
+
+const relacionados = allArticulos
+  .filter(a => a.id !== art.id && a.data.categoria === art.data.categoria)
+  .slice(0, 2);
+
 function formatFecha(fecha: Date) {
   return fecha.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
 }
-function leerMin(contenido: string) {
-  return Math.max(1, Math.ceil((contenido?.split(' ').length ?? 200) / 200));
+function leerMin(body: string) {
+  return Math.max(1, Math.ceil((body?.split(' ').length ?? 200) / 200));
 }
-
-const allArticulos = await getCollection('articulos');
-const relacionados = allArticulos
-  .filter(a => a.id !== art.id && a.data.categoria === art.data.categoria)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 3);
 ---
 
 <Layout title={`${art.data.title} — Javier Pino`} description={art.data.resumen}>
 
+  <!-- CABECERA DEL ARTÍCULO -->
   <div class="art-header">
     <div class="art-header-inner">
+      <a href="/articulos" class="back-link">← Todos los artículos</a>
       <div class="art-eyebrow">{art.data.categoria}</div>
       <h1>{art.data.title}</h1>
-      <p class="art-lead">{art.data.resumen}</p>
-      <div class="art-meta-bar">
-        <div class="art-author">
-          <div class="author-avatar">JP</div>
-          <div>
-            <strong>Javier Pino</strong>
-            <span>Pastor · Teólogo · Reformado</span>
-          </div>
-        </div>
-        <div class="art-meta-right">
-          <span>{formatFecha(art.data.date)}</span>
-          <span class="sep">·</span>
-          <span>{leerMin(art.body)} min de lectura</span>
-        </div>
+      <div class="art-meta">
+        <span class="meta-author">Javier Pino</span>
+        <span class="sep">·</span>
+        <span>{formatFecha(art.data.date)}</span>
+        <span class="sep">·</span>
+        <span>{leerMin(art.body)} min de lectura</span>
       </div>
+      {art.data.resumen && (
+        <p class="art-lead">{art.data.resumen}</p>
+      )}
     </div>
   </div>
 
-  <div class="art-layout">
-    <article class="art-body prose">
+  <!-- CUERPO -->
+  <div class="art-body-wrap">
+    <article class="prose">
       <Content />
     </article>
-
-    <aside class="sidebar">
-      <div class="widget">
-        <div class="sub-box">
-          <h4>Newsletter</h4>
-          <p>Recibí los próximos artículos en tu correo.</p>
-          <input type="email" placeholder="Tu email..." />
-          <button type="button">Suscribirme →</button>
-        </div>
-      </div>
-
-      {relacionados.length > 0 && (
-        <div class="widget">
-          <div class="widget-title">Artículos relacionados</div>
-          {relacionados.map(rel => (
-            <div class="sb-art">
-              <h5><a href={`/articulos/${rel.id}`}>{rel.data.title}</a></h5>
-              <span>{formatFecha(rel.data.date)}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div class="widget">
-        <div class="widget-title">Sobre el autor</div>
-        <div class="about-mini">
-          <div class="about-mini-avatar">JP</div>
-          <div>
-            <strong>Javier Pino</strong>
-            <p>Pastor bautista reformado, teólogo. Neuquén, Argentina.</p>
-            <a href="/sobre-mi">Leer más →</a>
-          </div>
-        </div>
-      </div>
-    </aside>
   </div>
 
-  <div class="art-footer-nav">
-    <div class="art-footer-nav-inner">
-      <a href="/articulos" class="btn btn-outline">← Todos los artículos</a>
+  <!-- AUTOR -->
+  <div class="author-strip">
+    <div class="author-inner">
+      <div class="author-avatar">JP</div>
+      <div class="author-text">
+        <strong>Javier Pino</strong>
+        <p>Pastor bautista reformado, teólogo y estudiante de Licenciatura en Teología. Neuquén, Argentina.</p>
+        <a href="/sobre-mi">Más sobre mí →</a>
+      </div>
     </div>
   </div>
+
+  <!-- NAVEGACIÓN PREVIO / SIGUIENTE -->
+  {(prevArt || nextArt) && (
+    <nav class="art-nav">
+      <div class="art-nav-inner">
+        {prevArt ? (
+          <a href={`/articulos/${prevArt.id}`} class="art-nav-card prev">
+            <span class="nav-dir">← Artículo anterior</span>
+            <span class="nav-cat">{prevArt.data.categoria}</span>
+            <span class="nav-title">{prevArt.data.title}</span>
+            <span class="nav-date">{formatFecha(prevArt.data.date)}</span>
+          </a>
+        ) : <div />}
+        {nextArt ? (
+          <a href={`/articulos/${nextArt.id}`} class="art-nav-card next">
+            <span class="nav-dir">Artículo siguiente →</span>
+            <span class="nav-cat">{nextArt.data.categoria}</span>
+            <span class="nav-title">{nextArt.data.title}</span>
+            <span class="nav-date">{formatFecha(nextArt.data.date)}</span>
+          </a>
+        ) : <div />}
+      </div>
+    </nav>
+  )}
+
+  <!-- RELACIONADOS -->
+  {relacionados.length > 0 && (
+    <div class="relacionados">
+      <div class="relacionados-inner">
+        <div class="rel-label">También en {art.data.categoria}</div>
+        <div class="rel-grid">
+          {relacionados.map(rel => (
+            <a href={`/articulos/${rel.id}`} class="rel-card">
+              <span class="rel-cat">{rel.data.categoria}</span>
+              <span class="rel-title">{rel.data.title}</span>
+              <span class="rel-date">{formatFecha(rel.data.date)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
 
 </Layout>
 
 <style>
-  .art-header{background:var(--navy);border-bottom:2px solid var(--gold);padding:3.5rem 2rem 2.5rem}
-  .art-header-inner{max-width:760px;margin:0 auto}
-  .art-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-  .art-eyebrow::before{content:'';width:20px;height:1px;background:var(--gold)}
-  .art-header h1{font-family:var(--fd);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:white;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1rem}
-  .art-lead{font-size:1rem;color:rgba(255,255,255,.65);line-height:1.7;font-style:italic;margin-bottom:1.5rem;border-left:2px solid var(--gold);padding-left:.9rem}
-  .art-meta-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-  .art-author{display:flex;align-items:center;gap:.75rem}
-  .author-avatar{width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:white;flex-shrink:0}
-  .art-author strong{display:block;font-size:.82rem;color:white}
-  .art-author span{font-size:.68rem;color:rgba(255,255,255,.45)}
-  .art-meta-right{font-size:.72rem;color:rgba(255,255,255,.45)}
-  .sep{margin:0 .35rem}
-  .art-layout{max-width:var(--max);margin:0 auto;padding:3rem 2rem 5rem;display:grid;grid-template-columns:1fr 270px;gap:3.5rem;align-items:start}
+  /* ── CABECERA ── */
+  .art-header {
+    background: var(--navy);
+    border-bottom: 2px solid var(--gold);
+    padding: 3rem 2rem 3.5rem;
+  }
+  .art-header-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .back-link {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    margin-bottom: 1.5rem;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--gold); }
+
+  .art-eyebrow {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .85rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .art-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .art-header h1 {
+    font-family: var(--fd);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .art-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .6rem;
+    font-size: .72rem;
+    color: rgba(255,255,255,.45);
+    margin-bottom: 1.25rem;
+  }
+  .meta-author { color: rgba(255,255,255,.65); font-weight: 600; }
+  .sep { color: rgba(255,255,255,.2); }
+
+  .art-lead {
+    font-size: .95rem;
+    color: rgba(255,255,255,.55);
+    line-height: 1.75;
+    font-style: italic;
+    border-left: 2px solid var(--gold);
+    padding-left: 1rem;
+    margin: 0;
+  }
+
+  /* ── CUERPO ── */
+  .art-body-wrap {
+    background: var(--white);
+    padding: 3.5rem 2rem 4rem;
+  }
 
   .prose {
+    max-width: 660px;
+    margin: 0 auto;
     font-family: 'Lora', Georgia, serif;
     font-size: 1.08rem;
     line-height: 1.9;
     color: #1c1c1c;
-    max-width: 680px;
   }
 
   .prose p { margin-bottom: 1.9rem; }
@@ -136,7 +218,6 @@ const relacionados = allArticulos
     margin-bottom: .85rem;
     letter-spacing: -0.02em;
   }
-
   .prose h3 {
     font-family: var(--fd);
     font-size: 1.15rem;
@@ -146,7 +227,6 @@ const relacionados = allArticulos
     margin-top: 2.25rem;
     margin-bottom: .6rem;
   }
-
   .prose h4 {
     font-family: var(--fs);
     font-size: .75rem;
@@ -163,10 +243,10 @@ const relacionados = allArticulos
   .prose a { color: var(--gold); border-bottom: 1px solid rgba(184,150,12,.3); transition: all .2s; }
   .prose a:hover { color: var(--navy); border-color: var(--navy); }
 
-  .prose ul { margin: .25rem 0 1.5rem 0; list-style: none; padding: 0; }
+  .prose ul { margin: .25rem 0 1.9rem 0; list-style: none; padding: 0; }
   .prose ul li { position: relative; padding-left: 1.4rem; margin-bottom: .5rem; line-height: 1.8; }
   .prose ul li::before { content: '–'; position: absolute; left: 0; color: var(--ink2); }
-  .prose ol { margin: .25rem 0 1.5rem 0; list-style: decimal; padding-left: 1.5rem; }
+  .prose ol { margin: .25rem 0 1.9rem 0; list-style: decimal; padding-left: 1.5rem; }
   .prose ol li { margin-bottom: .5rem; line-height: 1.8; }
 
   .prose blockquote {
@@ -177,31 +257,157 @@ const relacionados = allArticulos
     color: #444;
   }
   .prose blockquote p { margin-bottom: 0; }
-
   .prose hr { border: none; margin: 2.5rem 0; }
-
   .prose img { max-width: 100%; margin: 2rem 0; display: block; }
-  .prose code { background: var(--off); padding: .15rem .4rem; font-size: .88em; border: 1px solid var(--line); font-family: monospace; }
 
-  .sidebar{display:flex;flex-direction:column;gap:2rem;position:sticky;top:80px}
-  .widget-title{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:.4rem;margin-bottom:1rem}
-  .sub-box{background:var(--navy);padding:1.5rem;color:white}
-  .sub-box h4{font-family:var(--fd);font-size:1rem;color:white;margin-bottom:.4rem}
-  .sub-box p{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:.85rem}
-  .sub-box input{width:100%;padding:.5rem .75rem;font-size:.8rem;border:none;border-bottom:1px solid rgba(255,255,255,.3);background:transparent;color:white;margin-bottom:.65rem;outline:none;font-family:var(--fs)}
-  .sub-box input::placeholder{color:rgba(255,255,255,.35)}
-  .sub-box button{width:100%;padding:.55rem;background:var(--gold);color:white;border:none;font-size:.75rem;font-weight:600;cursor:pointer;font-family:var(--fs);transition:background .2s}
-  .sub-box button:hover{background:var(--gold-light)}
-  .sb-art{padding:.75rem 0;border-bottom:1px solid var(--line)}.sb-art:last-child{border-bottom:none}
-  .sb-art h5{font-family:var(--fd);font-size:.85rem;color:var(--navy);line-height:1.35;margin-bottom:.2rem;font-weight:700}
-  .sb-art h5 a{color:var(--navy)}.sb-art h5 a:hover{color:var(--gold)}
-  .sb-art span{font-size:.65rem;color:var(--ink2)}
-  .about-mini{display:flex;gap:.85rem;align-items:flex-start}
-  .about-mini-avatar{width:40px;height:40px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
-  .about-mini strong{font-size:.85rem;color:var(--navy);display:block;margin-bottom:.2rem}
-  .about-mini p{font-size:.78rem;color:var(--ink2);line-height:1.5;margin-bottom:.4rem}
-  .about-mini a{font-size:.72rem;color:var(--gold);font-weight:600}
-  .art-footer-nav{border-top:1px solid var(--line);padding:2rem}
-  .art-footer-nav-inner{max-width:var(--max);margin:0 auto}
-  @media(max-width:900px){.art-layout{grid-template-columns:1fr}.sidebar{position:static}.art-meta-bar{flex-direction:column;align-items:flex-start}}
+  /* ── AUTOR ── */
+  .author-strip {
+    background: var(--off);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 2.5rem 2rem;
+  }
+  .author-inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .author-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .author-text strong {
+    display: block;
+    font-size: .92rem;
+    color: var(--navy);
+    margin-bottom: .2rem;
+  }
+  .author-text p {
+    font-size: .8rem;
+    color: var(--ink2);
+    line-height: 1.6;
+    margin-bottom: .35rem;
+  }
+  .author-text a {
+    font-size: .75rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .author-text a:hover { color: var(--navy); }
+
+  /* ── PREVIO / SIGUIENTE ── */
+  .art-nav {
+    background: var(--white);
+    border-top: 1px solid var(--line);
+  }
+  .art-nav-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .art-nav-card {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    padding: 2rem 1.5rem;
+    transition: background .2s;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+  .art-nav-card:hover { background: var(--off); border-bottom-color: var(--gold); }
+  .art-nav-card.prev { border-right: 1px solid var(--line); padding-left: 0; }
+  .art-nav-card.next { text-align: right; padding-right: 0; }
+
+  .nav-dir {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .nav-cat {
+    font-size: .62rem;
+    color: var(--ink2);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .nav-title {
+    font-family: var(--fd);
+    font-size: .98rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .nav-date {
+    font-size: .65rem;
+    color: var(--ink2);
+  }
+
+  /* ── RELACIONADOS ── */
+  .relacionados {
+    background: var(--navy);
+    padding: 3rem 2rem;
+  }
+  .relacionados-inner { max-width: 720px; margin: 0 auto; }
+  .rel-label {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .rel-label::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+  .rel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .rel-card {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(255,255,255,.1);
+    transition: border-color .2s;
+  }
+  .rel-card:hover { border-color: var(--gold); }
+  .rel-cat {
+    font-size: .6rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .rel-title {
+    font-family: var(--fd);
+    font-size: .92rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.35;
+  }
+  .rel-date { font-size: .62rem; color: rgba(255,255,255,.35); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .art-header { padding: 2rem 1.25rem 2.5rem; }
+    .art-body-wrap { padding: 2.5rem 1.25rem 3rem; }
+    .art-nav-inner { grid-template-columns: 1fr; }
+    .art-nav-card.prev { border-right: none; border-bottom: 1px solid var(--line); padding-left: 0; }
+    .art-nav-card.next { text-align: left; padding-right: 0; }
+    .rel-grid { grid-template-columns: 1fr; }
+    .author-inner { align-items: flex-start; }
+  }
 </style>
