@@ -23,8 +23,6 @@ Debemos mostrar que la Encarnación fue el cumplimiento de un acuerdo voluntario
 
 Tito 1:2 es clave aquí. Dios prometió la vida eterna antes del principio de los siglos. ¿A quién? Al Hijo. La Encarnación es el Hijo viniendo a la tierra a buscar lo que el Padre le prometió en la eternidad.
 
----
-
 ## II. El Anuncio: Génesis 3:15 no fue un "Plan B"
 
 La caída del hombre **no tomó a Dios por sorpresa**; fue el escenario para Su gloria.
@@ -40,8 +38,6 @@ En Génesis 3:15, cuando Dios anuncia que la simiente de la mujer herirá la cab
 ### El Cordero Predestinado
 
 1 Pedro 1:20 es contundente: Cristo ya estaba *"destinado desde antes de la fundación del mundo"*. El pesebre no fue una ambulancia para una emergencia, fue el cumplimiento de un **calendario eterno**.
-
----
 
 ## III. La Progresión: El Misterio que se Aclara en la Historia
 
@@ -61,8 +57,6 @@ Según Efesios 3:8-11, este era un *"misterio escondido desde los siglos"*. A lo
 
 La historia de la redención es la historia de Dios preparando el escenario. Cada profecía era un recordatorio de que el Mediador pactado en la eternidad estaba en camino.
 
----
-
 ## IV. La Culminación: Belén, el Cumplimiento del Pacto
 
 *El Verbo se hizo carne para "acabar la obra".*
@@ -78,8 +72,6 @@ Cristo no vino solo a darnos un ejemplo, vino a **ejecutar el Pacto**. Al nacer 
 ### Nuestra Adopción
 
 El clímax de este plan es Efesios 1:5: *somos adoptados hijos suyos por medio de Jesucristo, según el puro afecto de Su voluntad.*
-
----
 
 ## Conclusión y Aplicación
 

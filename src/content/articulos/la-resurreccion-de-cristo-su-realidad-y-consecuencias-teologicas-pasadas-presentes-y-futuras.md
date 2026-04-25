@@ -23,8 +23,6 @@ Incluso los ángeles en la tumba vacía recordaron a las mujeres las palabras de
 
 > Esto debe dar seguridad a nuestras vidas: Dios mismo orquesta todo desde la eternidad y ejecuta su voluntad en el tiempo perfecto. Nada llega tarde o demasiado temprano; con Dios, todo llega a tiempo. ¡A Dios sea la gloria!
 
----
-
 ## II. La certeza de su muerte
 
 La resurrección no es una idea espiritual subjetiva; es un **hecho físico** que requiere, primero, una muerte certificada. Juan 19:28-30 nos dice: *"Después de esto, sabiendo Jesús que ya todo estaba consumado, dijo, para que la Escritura se cumpliese: Tengo sed... Cuando Jesús hubo tomado el vinagre, dijo: Consumado es. Y habiendo inclinado la cabeza, entregó el espíritu"*.
@@ -41,8 +39,6 @@ Hermanos, esto no es un adorno literario ni una metáfora mística. Lo que Juan 
 
 Cuando la lanza atravesó el costado de Jesús, brotó el resultado de un corazón que ya se había detenido. Para que Juan distinguiera la sangre del "agua", la sedimentación sanguínea ya debía haber comenzado, separando los glóbulos rojos del plasma. Si hubiera estado solo desmayado, esto no habría ocurrido. En términos forenses: su corazón ya no latía. Había muerto clínicamente, y los soldados romanos, expertos en ejecución, lo sabían.
 
----
-
 ## III. Sepultura: ¿Tres días?
 
 El cuerpo fue bajado de la cruz antes del día de reposo. Jesús dijo que estaría en el sepulcro tres días y tres noches, pero aparentemente solo estuvo un día y medio. ¿Cómo es posible?
@@ -51,8 +47,6 @@ Ocurre que estamos interpretando el tiempo bajo nuestra lógica moderna. **En el
 
 El cuerpo fue solicitado por José de Arimatea, miembro del Sanedrín, y puesto en un sepulcro nuevo. Una piedra rodante selló la entrada y una guardia fue apostada para evitar que se robaran el cuerpo. Mateo 27:62-66 registra cómo los sumos sacerdotes fueron ante Pilato para asegurar el sepulcro: *"Señor, nos acordamos que aquel engañador dijo, viviendo aún: Después de tres días resucitaré"*.
 
----
-
 ## IV. Resurrección
 
 Lucas 24:1-9 relata: *"El primer día de la semana, muy de mañana, vinieron al sepulcro... y hallaron removida la piedra... y entrando, no hallaron el cuerpo del Señor Jesús... se pararon junto a ellas dos varones con vestiduras resplandecientes... les dijeron: ¿Por qué buscáis entre los muertos al que vive? No está aquí, sino que **ha resucitado**"*.
@@ -60,8 +54,6 @@ Lucas 24:1-9 relata: *"El primer día de la semana, muy de mañana, vinieron al 
 Si creemos en la inspiración de las Escrituras, este relato basta. No obstante, Dios orquestó los hechos para que incluso los incrédulos hallaran evidencia. ¡Jesús ha resucitado! Esto fue atestiguado primero por las mujeres. No es casualidad: en el primer siglo, el testimonio femenino no tenía valor legal, lo que refuerza la veracidad del relato —nadie habría inventado testigos "débiles" para validar un hecho tan extraordinario.
 
 La evidencia es tan contundente que Pablo escribe en 1 Corintios 15:5-8: *"y que apareció a Cefas, y después a los doce. Después apareció a más de quinientos hermanos a la vez... Después apareció a Jacobo; después a todos los apóstoles; y al último de todos... me apareció a mí"*. Además, demostró que no era una alucinación, sino el Cristo con un cuerpo glorificado. Lucas 24:36-43 registra cómo **comió pescado y panal de miel** ante ellos para demostrar que tenía carne y huesos.
-
----
 
 ## V. Los alcances de su resurrección para los creyentes
 
