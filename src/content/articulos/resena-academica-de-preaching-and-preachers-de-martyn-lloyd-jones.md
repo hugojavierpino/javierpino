@@ -15,7 +15,6 @@ La **tesis dominante** del libro es que la predicación constituye la tarea prin
 
 No se trata solo de reflexionar sobre cómo hablar en público, sino de recuperar la convicción de que Dios ha querido hablar a su pueblo y al mundo por medio de la proclamación de su Palabra. Esa convicción recorre de principio a fin los dieciséis capítulos de la obra, que avanzan desde la defensa de la primacía del púlpito hasta el tema final de la unción del Espíritu Santo en el acto mismo de predicar.
 
----
 
 ## Resumen del contenido
 
@@ -54,7 +53,6 @@ En el capítulo catorce, **"Calling for Decisions"**, Lloyd-Jones entra en un te
 
 El capítulo final, **"Demonstration of the Spirit and of the Power"**, corona el libro con su énfasis más decisivo. Después de hablar de forma, preparación, estructura y peligros, Lloyd-Jones concluye con la afirmación de que nada de eso basta sin la obra especial del Espíritu Santo. Aclara que preparación y unción no son alternativas, sino complementarias.
 
----
 
 ## Crítica
 
@@ -67,7 +65,6 @@ Otra gran fortaleza del libro es el modo en que integra teología, espiritualida
 
 Sin embargo, la obra también presenta algunas limitaciones. Por momentos, el tono dogmático de Lloyd-Jones puede parecer excesivo. Esa seguridad es parte del atractivo del libro, pero a veces también restringe el diálogo con otras aproximaciones homiléticas o eclesiológicas.
 
----
 
 ## Conclusión
 
