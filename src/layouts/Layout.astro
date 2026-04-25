@@ -39,9 +39,8 @@ const currentPath = Astro.url.pathname;
       <div class="ts-left">Neuquén, Argentina &middot; Soli Deo Gloria</div>
       <div class="ts-right">
         <a href="/articulos">Artículos</a>
-        <a href="/sermones">Sermones</a>
-        <a href="/libros">Libros</a>
-        <a href="/sobre-mi">Sobre mí</a>
+        <a href="/podcast">Podcast</a>
+        <a href="/recursos">Recursos</a>
         <a href="#contacto">Contacto</a>
       </div>
     </div>
@@ -55,9 +54,8 @@ const currentPath = Astro.url.pathname;
       <ul class="nav-links" id="navLinks">
         <li><a href="/" class={currentPath === "/" ? "active" : ""}>Inicio</a></li>
         <li><a href="/articulos" class={currentPath.startsWith("/articulos") ? "active" : ""}>Artículos</a></li>
-        <li><a href="/sermones" class={currentPath.startsWith("/sermones") ? "active" : ""}>Sermones</a></li>
-        <li><a href="/libros" class={currentPath.startsWith("/libros") ? "active" : ""}>Libros</a></li>
-        <li><a href="/sobre-mi" class={currentPath === "/sobre-mi" ? "active" : ""}>Sobre mí</a></li>
+        <li><a href="/podcast" class={currentPath.startsWith("/podcast") ? "active" : ""}>Podcast</a></li>
+        <li><a href="/recursos" class={currentPath.startsWith("/recursos") ? "active" : ""}>Recursos</a></li>
         <li><a href="#contacto" class="nav-cta">Suscribirse</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
