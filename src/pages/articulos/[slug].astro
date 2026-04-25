@@ -118,58 +118,108 @@ const relacionados = allArticulos
 
   .prose {
     font-family: 'Lora', Georgia, serif;
-    font-size: 1.13rem;
-    line-height: 1.95;
-    color: #1a1a1a;
+    font-size: 1.1rem;
+    line-height: 2;
+    color: #1c1c1c;
     max-width: 680px;
   }
-  .prose p { margin-bottom: 1.65rem; }
+
+  /* Drop cap en el primer párrafo */
+  .prose > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--fd);
+    font-size: 4.2rem;
+    font-weight: 900;
+    line-height: .78;
+    color: var(--navy);
+    margin-right: .12rem;
+    margin-top: .18rem;
+  }
+
+  .prose p { margin-bottom: 1.6rem; }
+
+  /* H2: sección principal con acento dorado */
   .prose h2 {
     font-family: var(--fd);
-    font-size: 1.65rem;
-    font-weight: 700;
+    font-size: 1.6rem;
+    font-weight: 900;
     color: var(--navy);
     line-height: 1.15;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
-    padding-bottom: .5rem;
-    border-bottom: 1px solid var(--line);
+    margin-top: 3.5rem;
+    margin-bottom: 1.1rem;
+    letter-spacing: -0.02em;
+    padding-left: 1rem;
+    border-left: 3px solid var(--gold);
   }
+
+  /* H3: subsección en itálica */
   .prose h3 {
     font-family: var(--fd);
-    font-size: 1.3rem;
+    font-size: 1.18rem;
     font-weight: 700;
+    font-style: italic;
     color: var(--navy);
-    line-height: 1.2;
-    margin-top: 2.5rem;
-    margin-bottom: .75rem;
+    line-height: 1.25;
+    margin-top: 2.25rem;
+    margin-bottom: .65rem;
   }
+
+  /* H4: etiqueta pequeña dorada */
   .prose h4 {
     font-family: var(--fs);
-    font-size: .78rem;
+    font-size: .72rem;
     font-weight: 700;
     color: var(--gold);
-    letter-spacing: .1em;
+    letter-spacing: .12em;
     text-transform: uppercase;
     margin-top: 2rem;
-    margin-bottom: .6rem;
+    margin-bottom: .5rem;
   }
+
   .prose strong { font-weight: 700; color: var(--navy); }
-  .prose em { font-style: italic; color: #333; }
+  .prose em { font-style: italic; color: #2a2a2a; }
   .prose a { color: var(--gold); border-bottom: 1px solid rgba(184,150,12,.35); transition: all .2s; }
   .prose a:hover { color: var(--navy); border-color: var(--navy); }
-  .prose ul { margin: .5rem 0 1.65rem 1.25rem; list-style: none; padding: 0; }
-  .prose ul li { position: relative; padding-left: 1.4rem; margin-bottom: .6rem; line-height: 1.75; }
+
+  /* Listas con guión dorado */
+  .prose ul { margin: .5rem 0 1.65rem 0; list-style: none; padding: 0; }
+  .prose ul li { position: relative; padding-left: 1.5rem; margin-bottom: .65rem; line-height: 1.85; }
   .prose ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
   .prose ol { margin: .5rem 0 1.65rem 0; list-style: none; padding: 0; counter-reset: ol-counter; }
-  .prose ol li { position: relative; padding-left: 2.2rem; margin-bottom: .75rem; line-height: 1.75; counter-increment: ol-counter; }
+  .prose ol li { position: relative; padding-left: 2.2rem; margin-bottom: .75rem; line-height: 1.85; counter-increment: ol-counter; }
   .prose ol li::before { content: counter(ol-counter) '.'; position: absolute; left: 0; font-family: var(--fd); font-size: .85rem; font-weight: 700; color: var(--gold); top: .15rem; }
-  .prose blockquote { border-left: 3px solid var(--gold); margin: 2.5rem 0; padding: 1.25rem 1.75rem; background: var(--off); font-style: italic; color: #444; font-family: var(--fd); font-size: 1.08rem; line-height: 1.85; }
+
+  /* Citas bíblicas y bloques destacados */
+  .prose blockquote {
+    border-left: 3px solid var(--gold);
+    margin: 2.75rem 0;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(to right, rgba(184,150,12,.04), transparent);
+    font-style: italic;
+    color: #3a3a3a;
+    font-family: var(--fd);
+    font-size: 1.08rem;
+    line-height: 1.9;
+    position: relative;
+  }
+  .prose blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: -.5rem;
+    left: 1.5rem;
+    font-family: var(--fd);
+    font-size: 4rem;
+    color: var(--gold);
+    opacity: .25;
+    line-height: 1;
+  }
   .prose blockquote p { margin-bottom: 0; }
-  .prose hr { border: none; text-align: center; margin: 3rem 0; color: var(--gold); font-size: 1.2rem; letter-spacing: .5em; }
-  .prose hr::after { content: '✦ ✦ ✦'; }
-  .prose img { max-width: 100%; margin: 2rem 0; border: 1px solid var(--line); display: block; }
+
+  /* Separador decorativo */
+  .prose hr { border: none; text-align: center; margin: 3.5rem 0; color: var(--gold); font-size: 1rem; letter-spacing: .6em; }
+  .prose hr::after { content: '✦  ✦  ✦'; }
+
+  .prose img { max-width: 100%; margin: 2.5rem 0; border: 1px solid var(--line); display: block; }
   .prose code { background: var(--off); padding: .15rem .4rem; font-size: .88em; border: 1px solid var(--line); font-family: monospace; }
 
   .sidebar{display:flex;flex-direction:column;gap:2rem;position:sticky;top:80px}
