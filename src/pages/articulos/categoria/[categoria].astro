@@ -1,0 +1,99 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articulos = await getCollection('articulos');
+  const categorias = [...new Set(articulos.map(a => a.data.categoria))];
+  return categorias.map(cat => ({
+    params: { categoria: cat.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') },
+    props: { categoria: cat },
+  }));
+}
+
+const { categoria } = Astro.props;
+const todos = await getCollection('articulos');
+const articulos = todos
+  .filter(a => a.data.categoria === categoria)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+function formatFecha(fecha: Date) {
+  return fecha.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+function leerMin(body: string) {
+  return Math.max(1, Math.ceil((body?.split(' ').length ?? 200) / 200));
+}
+---
+
+<Layout
+  title={`${categoria} — Artículos — Javier Pino`}
+  description={`Todos los artículos de Javier Pino sobre ${categoria}.`}
+>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <a href="/articulos" class="back-link">← Todos los artículos</a>
+      <div class="page-eyebrow">Categoría</div>
+      <h1>{categoria}</h1>
+      <p>{articulos.length} {articulos.length === 1 ? 'artículo' : 'artículos'}</p>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main>
+      <div class="art-grid">
+        {articulos.map((art, i) => (
+          <article class={`art-card${i === 0 ? ' featured' : ''}`}>
+            <a href={`/articulos/${art.id}`} class="art-card-img-link">
+              <div class="art-card-img">
+                <div class="art-card-placeholder">📖</div>
+              </div>
+            </a>
+            <div class="art-card-body">
+              {art.data.serie && (
+                <div class="serie-tag">Serie: {art.data.serie}</div>
+              )}
+              <h2 class="art-card-title">
+                <a href={`/articulos/${art.id}`}>{art.data.title}</a>
+              </h2>
+              <p class="art-card-excerpt">{art.data.resumen}</p>
+              <div class="meta">
+                <span>{formatFecha(art.data.date)}</span>
+                <span>·</span>
+                <span>{leerMin(art.body)} min de lectura</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </main>
+  </div>
+
+</Layout>
+
+<style>
+  .page-header { background: var(--navy); border-bottom: 2px solid var(--gold); padding: 3rem 2rem; }
+  .page-header-inner { max-width: var(--max); margin: 0 auto; }
+  .back-link { display: inline-block; font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 1.25rem; transition: color .2s; }
+  .back-link:hover { color: var(--gold); }
+  .page-eyebrow { font-size: .65rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
+  .page-header h1 { font-family: var(--fd); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; color: white; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: .4rem; }
+  .page-header p { font-size: .85rem; color: rgba(255,255,255,.4); }
+  .layout { max-width: var(--max); margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .art-grid { display: flex; flex-direction: column; }
+  .art-card { display: grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .art-card:last-child { border-bottom: none; }
+  .art-card.featured { grid-template-columns: 1fr; }
+  .art-card.featured .art-card-img { aspect-ratio: 16/7; max-height: 260px; }
+  .art-card.featured .art-card-title { font-size: 1.5rem; }
+  .art-card-img-link { display: block; }
+  .art-card-img { background: var(--off); border: 1px solid var(--line); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+  .art-card-placeholder { font-size: 2rem; color: var(--line2); }
+  .serie-tag { font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+  .art-card-title { font-family: var(--fd); font-size: 1.08rem; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: .4rem; }
+  .art-card-title a { color: var(--navy); }
+  .art-card-title a:hover { color: var(--gold); }
+  .art-card-excerpt { font-size: .85rem; color: var(--ink2); line-height: 1.65; margin-bottom: .4rem; }
+  .meta { font-size: .68rem; color: var(--ink2); display: flex; gap: .5rem; flex-wrap: wrap; }
+  @media (max-width: 580px) { .art-card { grid-template-columns: 72px 1fr; } .art-card.featured { grid-template-columns: 1fr; } }
+</style>

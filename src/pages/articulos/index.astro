@@ -7,6 +7,10 @@ const articulos = allArticulos.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 
+function slugCat(cat: string) {
+  return cat.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+}
+
 function formatFecha(fecha: Date) {
   return fecha.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
 }
@@ -43,7 +47,7 @@ function leerMin(contenido: string) {
                 </div>
               </a>
               <div class="art-card-body">
-                <div class="cat-label">{art.data.categoria}</div>
+                <a href={`/articulos/categoria/${slugCat(art.data.categoria)}`} class="cat-label">{art.data.categoria}</a>
                 <h2 class="art-card-title">
                   <a href={`/articulos/${art.id}`}>{art.data.title}</a>
                 </h2>

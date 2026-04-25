@@ -22,8 +22,20 @@ const prevArt = idx < sorted.length - 1 ? sorted[idx + 1] : null;
 const nextArt = idx > 0 ? sorted[idx - 1] : null;
 
 const relacionados = allArticulos
-  .filter(a => a.id !== art.id && a.data.categoria === art.data.categoria)
+  .filter(a => a.id !== art.id && a.data.categoria === art.data.categoria && !a.data.serie)
   .slice(0, 2);
+
+// Serie: todos los artículos de la misma serie, ordenados
+const serieArticulos = art.data.serie
+  ? allArticulos
+      .filter(a => a.data.serie === art.data.serie)
+      .sort((a, b) => (a.data.serie_orden ?? 0) - (b.data.serie_orden ?? 0))
+  : [];
+
+// Slug de categoría para el link
+function slugCat(cat: string) {
+  return cat.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+}
 
 function formatFecha(fecha: Date) {
   return fecha.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -39,7 +51,7 @@ function leerMin(body: string) {
   <div class="art-header">
     <div class="art-header-inner">
       <a href="/articulos" class="back-link">← Todos los artículos</a>
-      <div class="art-eyebrow">{art.data.categoria}</div>
+      <a href={`/articulos/categoria/${slugCat(art.data.categoria)}`} class="art-eyebrow">{art.data.categoria}</a>
       <h1>{art.data.title}</h1>
       <div class="art-meta">
         <span class="meta-author">Javier Pino</span>
@@ -53,6 +65,25 @@ function leerMin(body: string) {
       )}
     </div>
   </div>
+
+  <!-- SERIE -->
+  {serieArticulos.length > 0 && (
+    <div class="serie-box">
+      <div class="serie-inner">
+        <div class="serie-label">Serie · {art.data.serie}</div>
+        <ol class="serie-list">
+          {serieArticulos.map((s, i) => (
+            <li class={s.id === art.id ? 'current' : ''}>
+              {s.id === art.id
+                ? <span>{i + 1}. {s.data.title}</span>
+                : <a href={`/articulos/${s.id}`}>{i + 1}. {s.data.title}</a>
+              }
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  )}
 
   <!-- CUERPO -->
   <div class="art-body-wrap">
@@ -190,6 +221,58 @@ function leerMin(body: string) {
     padding-left: 1rem;
     margin: 0;
   }
+
+  /* ── CATEGORÍA LINK ── */
+  .art-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .85rem;
+    transition: opacity .2s;
+  }
+  .art-eyebrow:hover { opacity: .75; }
+  .art-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+  /* ── SERIE ── */
+  .serie-box {
+    background: var(--off);
+    border-bottom: 1px solid var(--line);
+    padding: 1.75rem 2rem;
+  }
+  .serie-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .serie-label {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .serie-label::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
+  .serie-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .serie-list li { font-size: .88rem; color: var(--ink2); padding-left: .25rem; }
+  .serie-list li a { color: var(--navy); transition: color .2s; }
+  .serie-list li a:hover { color: var(--gold); }
+  .serie-list li.current { font-weight: 700; color: var(--navy); }
+  .serie-list li.current span::before { content: '→ '; color: var(--gold); }
 
   /* ── CUERPO ── */
   .art-body-wrap {

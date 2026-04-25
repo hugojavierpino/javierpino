@@ -8,6 +8,8 @@ const articulos = defineCollection({
     date: z.coerce.date(),
     categoria: z.string(),
     resumen: z.string(),
+    serie: z.string().optional(),
+    serie_orden: z.number().optional(),
   }),
 });
 
