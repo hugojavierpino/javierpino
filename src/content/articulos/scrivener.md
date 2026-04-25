@@ -6,12 +6,12 @@ resumen: "Formato de texto de Scrivener"
 ---
 
 
-## Encabezado 1
+# Título principal (H1)
 
-## Encabezado 2
+## Subtítulo grande (H2)
 
-**Bold**
+### Subtítulo mediano (H3)
 
-*Italica*
+#### Subtítulo pequeño (H4)
 
-## \<\$N\> 1
+Este es un párrafo normal con texto **en negrita** y texto *en cursiva* dentro de la misma línea. Así se ve el cuerpo del artículo.
