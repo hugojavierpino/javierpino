@@ -206,9 +206,9 @@ function leerMin(body: string) {
     color: #222;
   }
 
-  .prose p { margin-bottom: 2rem; }
+  .prose :global(p) { margin-bottom: 2rem; }
 
-  .prose h2 {
+  .prose :global(h2) {
     font-family: var(--fd);
     font-size: 1.55rem;
     font-weight: 900;
@@ -218,7 +218,7 @@ function leerMin(body: string) {
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
   }
-  .prose h3 {
+  .prose :global(h3) {
     font-family: var(--fd);
     font-size: 1.2rem;
     font-weight: 700;
@@ -227,7 +227,7 @@ function leerMin(body: string) {
     margin-top: 2.5rem;
     margin-bottom: .75rem;
   }
-  .prose h4 {
+  .prose :global(h4) {
     font-family: var(--fs);
     font-size: .75rem;
     font-weight: 700;
@@ -238,18 +238,18 @@ function leerMin(body: string) {
     margin-bottom: .6rem;
   }
 
-  .prose strong { font-weight: 700; color: var(--navy); }
-  .prose em { font-style: italic; }
-  .prose a { color: var(--gold); border-bottom: 1px solid rgba(184,150,12,.3); transition: all .2s; }
-  .prose a:hover { color: var(--navy); border-color: var(--navy); }
+  .prose :global(strong) { font-weight: 700; color: var(--navy); }
+  .prose :global(em) { font-style: italic; }
+  .prose :global(a) { color: var(--gold); border-bottom: 1px solid rgba(184,150,12,.3); transition: all .2s; }
+  .prose :global(a:hover) { color: var(--navy); border-color: var(--navy); }
 
-  .prose ul { margin: .25rem 0 2rem 0; list-style: none; padding: 0; }
-  .prose ul li { position: relative; padding-left: 1.5rem; margin-bottom: .6rem; line-height: 1.75; }
-  .prose ul li::before { content: '–'; position: absolute; left: 0; color: var(--ink2); }
-  .prose ol { margin: .25rem 0 2rem 0; list-style: decimal; padding-left: 1.75rem; }
-  .prose ol li { margin-bottom: .6rem; line-height: 1.75; }
+  .prose :global(ul) { margin: .25rem 0 2rem 0; list-style: none; padding: 0; }
+  .prose :global(ul li) { position: relative; padding-left: 1.5rem; margin-bottom: .6rem; line-height: 1.75; }
+  .prose :global(ul li::before) { content: '–'; position: absolute; left: 0; color: var(--ink2); }
+  .prose :global(ol) { margin: .25rem 0 2rem 0; list-style: decimal; padding-left: 1.75rem; }
+  .prose :global(ol li) { margin-bottom: .6rem; line-height: 1.75; }
 
-  .prose blockquote {
+  .prose :global(blockquote) {
     border-left: 2px solid var(--gold);
     margin: 2.25rem 0;
     padding: .75rem 1.75rem;
@@ -257,9 +257,9 @@ function leerMin(body: string) {
     color: #555;
     font-size: 1.1rem;
   }
-  .prose blockquote p { margin-bottom: 0; }
-  .prose hr { border: none; margin: 3rem 0; }
-  .prose img { max-width: 100%; margin: 2rem 0; display: block; }
+  .prose :global(blockquote p) { margin-bottom: 0; }
+  .prose :global(hr) { border: none; margin: 3rem 0; }
+  .prose :global(img) { max-width: 100%; margin: 2rem 0; display: block; }
 
   /* ── AUTOR ── */
   .author-strip {
