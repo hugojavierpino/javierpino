@@ -1,8 +1,9 @@
 ---
-Titulo: Hola de nuevo
-Categoría: Prueba
-Resumen: mas de lo mismo
---- 
+title: "Hola de nuevo"
+date: 2026-04-26T18:55:34
+categoria: "Prueba"
+resumen: "mas de lo mismo"
+---
 
 ANÁLISIS TEOLÓGICO-ACADÉMICO
 ## "Preaching and Preachers" - Dr. Martyn Lloyd-Jones
