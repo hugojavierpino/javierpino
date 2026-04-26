@@ -1,0 +1,107 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const articulos = (await getCollection('articulos'))
+  .filter(a => !a.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categorias = [...new Set(articulos.map(a => a.data.categoria).filter(Boolean))];
+
+function fecha(d: Date) {
+  return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+<Layout title="Artículos" description="Reflexiones bíblicas, teología reformada y vida cristiana.">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="eyebrow">javierpino.org</div>
+      <h1>Artículos</h1>
+      <p>Reflexiones bíblicas, teología reformada y vida cristiana</p>
+    </div>
+  </div>
+
+  {categorias.length > 1 && (
+    <div class="filter-bar">
+      <div class="filter-inner">
+        <button class="pill active" data-cat="todos">Todos</button>
+        {categorias.map(cat => <button class="pill" data-cat={cat}>{cat}</button>)}
+      </div>
+    </div>
+  )}
+
+  <div class="lista-wrap">
+    <div class="lista">
+      {articulos.map(art => (
+        <a href={`/articulos/${art.id}`} class="item" data-cat={art.data.categoria}>
+          <div class="item-meta">
+            <span class="item-cat">{art.data.categoria}</span>
+            <span class="item-fecha">{fecha(art.data.date)}</span>
+          </div>
+          <h2 class="item-title">{art.data.title}</h2>
+          {art.data.resumen && <p class="item-resumen">{art.data.resumen}</p>}
+          <span class="item-leer">Leer →</span>
+        </a>
+      ))}
+      {articulos.length === 0 && (
+        <p class="vacio">Próximamente.</p>
+      )}
+    </div>
+  </div>
+
+</Layout>
+
+<script>
+  const pills = document.querySelectorAll('.pill');
+  const items = document.querySelectorAll<HTMLElement>('.item');
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const cat = pill.getAttribute('data-cat');
+      items.forEach(item => {
+        item.style.display = (cat === 'todos' || item.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  .page-header { background: var(--navy); border-bottom: 2px solid var(--gold); padding: 3.5rem 2rem 2.5rem; }
+  .page-header-inner { max-width: 760px; margin: 0 auto; }
+  .eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--gold-l); margin-bottom: .75rem; }
+  .page-header h1 { font-family: var(--fd); font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: white; margin-bottom: .5rem; }
+  .page-header p { font-size: .9rem; color: rgba(255,255,255,.55); }
+
+  .filter-bar { background: var(--off); border-bottom: 1px solid var(--line); padding: .75rem 2rem; }
+  .filter-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: .5rem; flex-wrap: wrap; }
+  .pill {
+    font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: .35rem .9rem; border: 1px solid var(--line); background: white;
+    cursor: pointer; transition: all .2s; font-family: var(--fs);
+  }
+  .pill.active, .pill:hover { background: var(--navy); border-color: var(--navy); color: white; }
+
+  .lista-wrap { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+  .item {
+    display: block; padding: 2rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: transform .15s;
+  }
+  .item:hover { transform: translateX(4px); }
+  .item:first-child { padding-top: 0; }
+  .item-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: .6rem; }
+  .item-cat { font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+  .item-fecha { font-size: .65rem; color: var(--ink2); }
+  .item-title { font-family: var(--fd); font-size: 1.35rem; font-weight: 700; color: var(--navy); line-height: 1.25; margin-bottom: .5rem; }
+  .item:hover .item-title { color: var(--gold); }
+  .item-resumen { font-size: .88rem; color: var(--ink2); line-height: 1.65; margin-bottom: .75rem; }
+  .item-leer { font-size: .7rem; font-weight: 700; letter-spacing: .06em; color: var(--gold); }
+  .vacio { color: var(--ink2); font-size: .9rem; padding: 2rem 0; }
+
+  @media (max-width: 600px) {
+    .page-header { padding: 2.5rem 1.25rem 2rem; }
+    .lista-wrap { padding: 2rem 1.25rem 3rem; }
+  }
+</style>
