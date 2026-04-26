@@ -39,6 +39,7 @@ function fecha(d: Date) {
     <div class="art-header-inner">
       <div class="art-cat">{art.data.categoria}</div>
       <h1>{art.data.title}</h1>
+      {art.data.pasaje && <div class="art-pasaje">{art.data.pasaje}</div>}
       {art.data.resumen && <p class="art-lead">{art.data.resumen}</p>}
       <div class="art-meta">
         <div class="art-autor">
@@ -63,6 +64,15 @@ function fecha(d: Date) {
       <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(art.data.title)}&url=${encodeURIComponent('https://javierpino.org/articulos/' + art.id)}`} target="_blank" rel="noopener" class="share-btn">Twitter / X</a>
       <a href={`https://wa.me/?text=${encodeURIComponent(art.data.title + ' https://javierpino.org/articulos/' + art.id)}`} target="_blank" rel="noopener" class="share-btn">WhatsApp</a>
     </div>
+
+    <div class="author-bio">
+      <div class="av-lg">JP</div>
+      <div class="author-bio-text">
+        <strong>Javier Pino</strong>
+        <span>Siervo de Jesucristo</span>
+        <p>Pastor y escritor comprometido con la proclamación fiel de las Escrituras.</p>
+      </div>
+    </div>
   </div>
 
   {(prev || next) && (
@@ -70,14 +80,32 @@ function fecha(d: Date) {
       <div class="art-nav-inner">
         {prev ? (
           <a href={`/articulos/${prev.id}`} class="art-nav-item">
-            <span class="nav-dir">← Anterior</span>
-            <span class="nav-title">{prev.data.title}</span>
+            <div class="nav-thumb">
+              {prev.data.imagen
+                ? <img src={prev.data.imagen} alt={prev.data.title} />
+                : <div class="nav-thumb-placeholder"><span>{prev.data.categoria}</span></div>
+              }
+            </div>
+            <div class="nav-text">
+              <span class="nav-dir">← Anterior</span>
+              <span class="nav-title">{prev.data.title}</span>
+              {prev.data.resumen && <span class="nav-resumen">{prev.data.resumen}</span>}
+            </div>
           </a>
         ) : <div />}
         {next ? (
           <a href={`/articulos/${next.id}`} class="art-nav-item right">
-            <span class="nav-dir">Siguiente →</span>
-            <span class="nav-title">{next.data.title}</span>
+            <div class="nav-thumb">
+              {next.data.imagen
+                ? <img src={next.data.imagen} alt={next.data.title} />
+                : <div class="nav-thumb-placeholder"><span>{next.data.categoria}</span></div>
+              }
+            </div>
+            <div class="nav-text">
+              <span class="nav-dir">Siguiente →</span>
+              <span class="nav-title">{next.data.title}</span>
+              {next.data.resumen && <span class="nav-resumen">{next.data.resumen}</span>}
+            </div>
           </a>
         ) : <div />}
       </div>
@@ -94,6 +122,7 @@ function fecha(d: Date) {
   .art-header { background: var(--navy); border-bottom: 2px solid var(--gold); padding: 3.5rem 2rem 2.5rem; }
   .art-header-inner { max-width: 760px; margin: 0 auto; }
   .art-cat { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-l); margin-bottom: 1rem; }
+  .art-pasaje { font-family: var(--fd); font-size: .95rem; font-style: italic; color: var(--gold-l); margin-bottom: .75rem; }
   .art-header h1 { font-family: var(--fd); font-size: clamp(1.75rem, 4.5vw, 2.75rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 1rem; }
   .art-lead { font-size: 1rem; color: rgba(255,255,255,.6); line-height: 1.75; font-style: italic; border-left: 3px solid var(--gold); padding-left: 1rem; margin-bottom: 1.75rem; }
   .art-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.12); }
@@ -107,13 +136,26 @@ function fecha(d: Date) {
 
   /* PROSE */
   .prose { font-family: 'Georgia', serif; font-size: 1.1rem; line-height: 1.9; color: var(--ink); }
-  .prose :global(p) { margin-bottom: 1.5rem; }
+  .prose :global(p) { margin-bottom: 0.75rem; }
+  .prose :global(p + p) { text-indent: 1.5em; }
   .prose :global(h2) { font-family: var(--fd); font-size: 1.55rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 .75rem; line-height: 1.2; }
   .prose :global(h3) { font-family: var(--fd); font-size: 1.2rem; font-weight: 700; color: var(--navy); margin: 2rem 0 .6rem; }
   .prose :global(h4) { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 1.75rem 0 .5rem; font-family: var(--fs); }
   .prose :global(strong) { font-weight: 700; color: var(--navy); }
   .prose :global(em) { font-style: italic; }
-  .prose :global(blockquote) { margin: 2rem 0; padding: 1.25rem 1.5rem; background: var(--off); border-left: 4px solid var(--gold); font-style: italic; color: var(--navy); }
+  .prose :global(blockquote) {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.75rem;
+    border-left: 4px solid var(--gold);
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    background: none;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--navy);
+  }
+  .prose :global(blockquote p) { margin-bottom: 0; }
   .prose :global(ul) { margin: 0 0 1.5rem; padding: 0; list-style: none; }
   .prose :global(ul li) { padding-left: 1.25rem; margin-bottom: .4rem; position: relative; }
   .prose :global(ul li)::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
@@ -131,20 +173,69 @@ function fecha(d: Date) {
   .share-btn { font-size: .7rem; font-weight: 600; padding: .4rem .9rem; border: 1px solid var(--line); color: var(--ink2); transition: all .2s; }
   .share-btn:hover { background: var(--navy); border-color: var(--navy); color: white; }
 
+  /* AUTHOR BIO */
+  .author-bio {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-top: 3rem;
+    padding: 1.75rem;
+    border: 1px solid var(--line);
+    background: var(--off);
+  }
+  .av-lg {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .author-bio-text strong { display: block; font-family: var(--fd); font-size: 1rem; font-weight: 700; color: var(--navy); }
+  .author-bio-text span { display: block; font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .6rem; }
+  .author-bio-text p { margin: 0; font-size: .88rem; line-height: 1.7; color: var(--ink2); }
+
   /* NAV PREV/NEXT */
   .art-nav { border-top: 2px solid var(--navy); background: var(--off); }
   .art-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; }
-  .art-nav-item { display: flex; flex-direction: column; gap: .4rem; padding: 1.5rem 1rem; transition: background .2s; }
-  .art-nav-item:hover { background: rgba(13,27,62,.04); }
-  .art-nav-item.right { text-align: right; align-items: flex-end; border-left: 1px solid var(--line); }
+  .art-nav-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1rem; transition: background .2s; text-decoration: none; }
+  .art-nav-item:hover { background: rgba(13,27,62,.05); }
+  .art-nav-item.right { flex-direction: row-reverse; text-align: right; border-left: 1px solid var(--line); }
+  .art-nav-item.right .nav-text { align-items: flex-end; }
+
+  .nav-thumb { flex-shrink: 0; width: 72px; height: 72px; overflow: hidden; }
+  .nav-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .nav-thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .4rem;
+  }
+  .nav-thumb-placeholder span { font-size: .5rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold-l); text-align: center; line-height: 1.4; }
+
+  .nav-text { display: flex; flex-direction: column; gap: .3rem; }
   .nav-dir { font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
   .nav-title { font-family: var(--fd); font-size: .95rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .nav-resumen { font-size: .75rem; color: var(--ink2); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
   @media (max-width: 600px) {
     .art-header { padding: 2.5rem 1.25rem 2rem; }
     .art-wrap { padding: 2rem 1.25rem 3rem; }
     .bc-inner { padding: .6rem 1.25rem; }
     .art-nav-inner { grid-template-columns: 1fr; }
-    .art-nav-item.right { text-align: left; align-items: flex-start; border-left: none; border-top: 1px solid var(--line); }
+    .art-nav-item { padding: 1.25rem 0; }
+    .art-nav-item.right { flex-direction: row; text-align: left; border-left: none; border-top: 1px solid var(--line); }
+    .art-nav-item.right .nav-text { align-items: flex-start; }
+    .author-bio { flex-direction: column; align-items: center; text-align: center; }
+    .author-bio-text span { text-align: center; }
   }
 </style>

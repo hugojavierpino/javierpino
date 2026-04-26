@@ -1,6 +1,7 @@
 ---
 title: "La resurrección de Cristo: su realidad y consecuencias teológicas pasadas, presentes y futuras"
 date: 2026-04-26T03:48:04
+categoria: "Sermón"
 pasaje: "1 Corintios 15"
 ---
 

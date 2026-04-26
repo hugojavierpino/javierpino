@@ -9,6 +9,8 @@ const articulos = defineCollection({
     categoria: z.string().optional().default('Artículo'),
     resumen: z.string().optional().default(''),
     imagen: z.string().optional(),
+    pasaje: z.string().optional(),
+    youtube: z.string().optional(),
     draft: z.boolean().optional().default(false),
   }),
 });
