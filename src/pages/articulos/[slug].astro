@@ -119,29 +119,34 @@ function fecha(d: Date) {
   .bc-inner { max-width: 760px; margin: 0 auto; padding: .6rem 2rem; display: flex; gap: .5rem; font-size: .65rem; color: var(--ink2); }
   .bc-inner a:hover { color: var(--gold); }
 
-  .art-header { background: var(--navy); border-bottom: 2px solid var(--gold); padding: 3.5rem 2rem 2.5rem; }
+  .art-header { background: var(--off); border-bottom: 1px solid var(--line); padding: 3.5rem 2rem 2.5rem; }
   .art-header-inner { max-width: 760px; margin: 0 auto; }
-  .art-cat { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-l); margin-bottom: 1rem; }
-  .art-pasaje { font-family: var(--fd); font-size: .95rem; font-style: italic; color: var(--gold-l); margin-bottom: .75rem; }
-  .art-header h1 { font-family: var(--fd); font-size: clamp(1.75rem, 4.5vw, 2.75rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 1rem; }
-  .art-lead { font-size: 1rem; color: rgba(255,255,255,.6); line-height: 1.75; font-style: italic; border-left: 3px solid var(--gold); padding-left: 1rem; margin-bottom: 1.75rem; }
-  .art-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.12); }
+  .art-cat { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .art-pasaje { font-family: var(--fd); font-size: .95rem; font-style: italic; color: var(--navy); margin-bottom: .75rem; }
+  .art-header h1 { font-family: var(--fd); font-size: clamp(1.75rem, 4.5vw, 2.75rem); font-weight: 900; color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
+  .art-lead { font-size: 1rem; color: var(--ink2); line-height: 1.75; font-style: italic; border-left: 3px solid var(--gold); padding-left: 1rem; margin-bottom: 1.75rem; }
+  .art-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
   .art-autor { display: flex; align-items: center; gap: .75rem; }
-  .av { width: 38px; height: 38px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; color: white; flex-shrink: 0; }
-  .art-autor strong { display: block; font-size: .82rem; color: white; }
-  .art-autor span { font-size: .65rem; color: rgba(255,255,255,.45); }
-  .art-meta time { font-size: .7rem; color: rgba(255,255,255,.4); }
+  .av { width: 38px; height: 38px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+  .art-autor strong { display: block; font-size: .82rem; color: var(--navy); }
+  .art-autor span { font-size: .65rem; color: var(--ink2); }
+  .art-meta time { font-size: .7rem; color: var(--ink2); }
 
   .art-wrap { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 4rem; }
 
   /* PROSE */
   .prose { font-family: 'Georgia', serif; font-size: 1.1rem; line-height: 1.9; color: var(--ink); }
-  .prose :global(p) { margin-bottom: 0.75rem; }
+  .prose :global(p) { margin-bottom: 1.1rem; }
   .prose :global(p + p) { text-indent: 1.5em; }
+  .prose :global(h1 + p),
+  .prose :global(h2 + p),
+  .prose :global(h3 + p),
+  .prose :global(h4 + p) { text-indent: 0; }
+  .prose :global(h1) { font-family: var(--fd); font-size: 2rem; font-weight: 900; color: var(--navy); margin: 3rem 0 1rem; line-height: 1.1; }
   .prose :global(h2) { font-family: var(--fd); font-size: 1.55rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 .75rem; line-height: 1.2; }
   .prose :global(h3) { font-family: var(--fd); font-size: 1.2rem; font-weight: 700; color: var(--navy); margin: 2rem 0 .6rem; }
-  .prose :global(h4) { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 1.75rem 0 .5rem; font-family: var(--fs); }
-  .prose :global(strong) { font-weight: 700; color: var(--navy); }
+  .prose :global(h4) { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 1.75rem 0 .5rem; font-family: var(--fs); }
+  .prose :global(strong) { font-weight: 700; }
   .prose :global(em) { font-style: italic; }
   .prose :global(blockquote) {
     margin: 2.5rem 0;
