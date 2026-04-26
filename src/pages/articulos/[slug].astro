@@ -58,9 +58,9 @@ function fecha(d: Date) {
       <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://javierpino.org/articulos/' + art.id)}`} target="_blank" rel="noopener" class="share-btn">Facebook</a>
     </div>
 
-    {mismaCategoria.length > 0 && (
-      <div class="mas-categoria">
-        <span class="mas-cat-label">Más de {art.data.categoria}</span>
+    <div class="mas-categoria">
+      <span class="mas-cat-label">Más de {art.data.categoria}</span>
+      {mismaCategoria.length > 0 ? (
         <div class="mas-cat-lista">
           {mismaCategoria.map(a => (
             <a href={`/articulos/${a.id}`} class="mas-cat-item">
@@ -68,9 +68,12 @@ function fecha(d: Date) {
               {a.data.resumen && <span class="mas-cat-resumen">{a.data.resumen}</span>}
             </a>
           ))}
+          <a href="/articulos" class="mas-cat-ver-todos">Ver todos →</a>
         </div>
-      </div>
-    )}
+      ) : (
+        <a href="/articulos" class="mas-cat-ver-todos">Ver todos los artículos →</a>
+      )}
+    </div>
 
     {(prev || next) && (
       <nav class="art-nav">
@@ -215,6 +218,8 @@ function fecha(d: Date) {
   .mas-cat-titulo { display: block; font-family: var(--fd); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .2rem; }
   .mas-cat-item:hover .mas-cat-titulo { color: var(--gold); }
   .mas-cat-resumen { display: block; font-size: .8rem; color: var(--ink2); line-height: 1.5; }
+  .mas-cat-ver-todos { display: inline-block; margin-top: .75rem; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
+  .mas-cat-ver-todos:hover { color: var(--navy); }
 
   /* OTRAS CATEGORÍAS */
   .otras-cats { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
