@@ -15,7 +15,7 @@ Es posible porque hay una diferencia enorme entre estudiar la Biblia y ser alime
 
 *El problema es que ese pastor no comió. Produjo. Y un pastor que produce sin comer, tarde o temprano, colapsa.*
 
-## El error que nadie confiesa
+### El error que nadie confiesa
 
 Martyn Lloyd-Jones, uno de los predicadores más sólidos del siglo veinte, señalaba algo que incomoda precisamente porque es tan común: el pastor que solo abre la Biblia para buscar sermones termina sin devoción personal real y con sermones que, aunque sean correctos, no tienen fuego. Porque el fuego no viene de la técnica. Viene de haber estado en la presencia de Dios antes de pararse frente al pueblo de Dios.
 
@@ -45,8 +45,10 @@ Pero eso viene después. Primero lo primero.
 
 Si esa pregunta te incomoda, el próximo artículo es para vos.
 
-## Preguntas para reflexionar
+#### Preguntas para reflexionar
 
-- ¿Tenés momentos separados para la lectura devocional y para la preparación del sermón, o todo se mezcla en uno solo?
-- ¿Qué parte de la Biblia hace tiempo que no leés simplemente para alimentarte, sin ninguna otra agenda?
-- Si tu congregación tuviera acceso a tu vida devocional esta semana, ¿qué verían?
+¿Tenés momentos separados para la lectura devocional y para la preparación del sermón, o todo se mezcla en uno solo?
+
+¿Qué parte de la Biblia hace tiempo que no leés simplemente para alimentarte, sin ninguna otra agenda?
+
+Si tu congregación tuviera acceso a tu vida devocional esta semana, ¿qué verían?
