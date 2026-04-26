@@ -43,16 +43,7 @@ function fecha(d: Date) {
       <h1>{art.data.title}</h1>
       {art.data.pasaje && <div class="art-pasaje">{art.data.pasaje}</div>}
       {art.data.resumen && <p class="art-lead">{art.data.resumen}</p>}
-      <div class="art-meta">
-        <div class="art-autor">
-          <div class="av">JP</div>
-          <div>
-            <strong>Javier Pino</strong>
-            <span>Siervo de Jesucristo</span>
-          </div>
-        </div>
-        <time>{fecha(art.data.date)}</time>
-      </div>
+      <p class="art-byline"><em>por Javier Pino · <time>{fecha(art.data.date)}</time></em></p>
     </div>
   </header>
 
@@ -143,12 +134,7 @@ function fecha(d: Date) {
   .art-pasaje { font-family: var(--fd); font-size: .95rem; font-style: italic; color: var(--navy); margin-bottom: .75rem; }
   .art-header h1 { font-family: var(--fd); font-size: clamp(1.75rem, 4.5vw, 2.75rem); font-weight: 900; color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
   .art-lead { font-size: 1rem; color: var(--ink2); line-height: 1.75; font-style: italic; border-left: 3px solid var(--gold); padding-left: 1rem; margin-bottom: 1.75rem; }
-  .art-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
-  .art-autor { display: flex; align-items: center; gap: .75rem; }
-  .av { width: 38px; height: 38px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; color: var(--gold); flex-shrink: 0; }
-  .art-autor strong { display: block; font-size: .82rem; color: var(--navy); }
-  .art-autor span { font-size: .65rem; color: var(--ink2); }
-  .art-meta time { font-size: .7rem; color: var(--ink2); }
+  .art-byline { font-size: .78rem; color: var(--ink2); margin-top: .5rem; font-family: Georgia, serif; }
 
   .art-wrap { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 4rem; }
 
