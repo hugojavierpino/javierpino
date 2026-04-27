@@ -1,24 +1,228 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+// ── CARGA TU CONTENIDO AQUÍ ──────────────────────────────────────────────────
+// Para agregar un ítem, copiá un bloque y completá los campos.
+// url: link directo a YouTube, Spotify, o página del libro.
+// imagen: opcional — URL de miniatura. Si no hay, se muestra ícono.
+
+const sermones = [
+  // { titulo: "El Dios que sostiene", descripcion: "Exposición de Salmo 23.", url: "https://youtube.com/watch?v=XXX", imagen: "", fecha: "2025-04-01" },
+]
+
+const videos = [
+  // { titulo: "¿Qué es la teología reformada?", descripcion: "Una conversación informal sobre las doctrinas de la gracia.", url: "https://youtube.com/watch?v=XXX", imagen: "", fecha: "2025-03-15" },
+]
+
+const podcast = [
+  // { titulo: "Episodio 1 — La Palabra y la predicación", descripcion: "Primera entrega del podcast.", url: "https://spotify.com/XXX", imagen: "", fecha: "2025-02-10" },
+]
+
+const libros = [
+  // { titulo: "Título del libro", descripcion: "Descripción breve del libro.", url: "https://amazon.com/XXX", imagen: "", fecha: "2024-01-01" },
+]
+// ─────────────────────────────────────────────────────────────────────────────
+
+const categorias = [
+  { id: "todos",    label: "Todos" },
+  { id: "sermones", label: "Sermones" },
+  { id: "videos",   label: "Videos" },
+  { id: "podcast",  label: "Podcast" },
+  { id: "libros",   label: "Libros" },
+]
+
+const iconos: Record<string, string> = {
+  sermones: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>`,
+  videos:   `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`,
+  podcast:  `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>`,
+  libros:   `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+}
+
+type Item = { titulo: string; descripcion: string; url: string; imagen: string; fecha: string }
+const items: { tipo: string; data: Item }[] = [
+  ...sermones.map(d => ({ tipo: "sermones", data: d })),
+  ...videos.map(d =>   ({ tipo: "videos",   data: d })),
+  ...podcast.map(d =>  ({ tipo: "podcast",  data: d })),
+  ...libros.map(d =>   ({ tipo: "libros",   data: d })),
+]
 ---
-<Layout title="Recursos" description="Recursos recomendados por Javier Pino.">
+
+<Layout title="Recursos" description="Sermones, videos, podcast y libros de Javier Pino.">
+
   <div class="page-header">
     <div class="page-header-inner">
       <div class="eyebrow">javierpino.org</div>
       <h1>Recursos</h1>
-      <p>Libros, artículos y materiales recomendados</p>
+      <p>Sermones, videos, podcast y libros</p>
     </div>
   </div>
-  <div class="content">
-    <p>Los recursos estarán disponibles pronto.</p>
+
+  <div class="recursos-wrap">
+
+    <!-- TABS -->
+    <div class="tabs" role="tablist">
+      {categorias.map(c => (
+        <button
+          class="tab"
+          data-cat={c.id}
+          role="tab"
+          aria-selected={c.id === "todos" ? "true" : "false"}
+        >{c.label}</button>
+      ))}
+    </div>
+
+    <!-- GRID -->
+    {items.length > 0 ? (
+      <div class="grid" id="grid">
+        {items.map(({ tipo, data }) => (
+          <a
+            href={data.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card"
+            data-tipo={tipo}
+          >
+            {data.imagen
+              ? <img src={data.imagen} alt={data.titulo} class="card-img" loading="lazy" />
+              : <div class="card-icon" set:html={iconos[tipo]} />
+            }
+            <div class="card-body">
+              <span class="card-badge">{tipo.charAt(0).toUpperCase() + tipo.slice(1)}</span>
+              <h3 class="card-title">{data.titulo}</h3>
+              {data.descripcion && <p class="card-desc">{data.descripcion}</p>}
+              {data.fecha && <p class="card-fecha">{new Date(data.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>}
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state" id="grid">
+        <div class="empty-cats">
+          {["sermones","videos","podcast","libros"].map(t => (
+            <div class="empty-cat" data-tipo={t}>
+              <div class="empty-icon" set:html={iconos[t]} />
+              <span>{t.charAt(0).toUpperCase() + t.slice(1)}</span>
+            </div>
+          ))}
+        </div>
+        <p class="empty-msg">El contenido estará disponible pronto.</p>
+      </div>
+    )}
+
   </div>
+
 </Layout>
 
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab')
+  const cards = document.querySelectorAll<HTMLElement>('.card, .empty-cat')
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false') })
+      tab.classList.add('active')
+      tab.setAttribute('aria-selected','true')
+
+      const cat = tab.dataset.cat!
+      cards.forEach(card => {
+        const tipo = (card as HTMLElement).dataset.tipo ?? ''
+        const show = cat === 'todos' || tipo === cat
+        ;(card as HTMLElement).style.display = show ? '' : 'none'
+      })
+    })
+  })
+
+  // activar "Todos" por defecto
+  document.querySelector<HTMLButtonElement>('.tab[data-cat="todos"]')?.classList.add('active')
+</script>
+
 <style>
-  .page-header { background: var(--navy); border-bottom: 2px solid var(--gold); padding: 3.5rem 2rem 2.5rem; }
+  .page-header {
+    background: var(--navy); border-bottom: 2px solid var(--gold);
+    padding: 3.5rem 2rem 2.5rem;
+  }
   .page-header-inner { max-width: 760px; margin: 0 auto; }
-  .eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--gold-l); margin-bottom: .75rem; }
-  h1 { font-family: var(--fd); font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: white; margin-bottom: .5rem; }
-  p { font-size: .9rem; color: rgba(255,255,255,.55); }
-  .content { max-width: 760px; margin: 3rem auto; padding: 0 2rem; color: var(--ink2); }
+  .eyebrow {
+    font-size: .6rem; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--gold-l); margin-bottom: .75rem;
+  }
+  h1 {
+    font-family: var(--fd); font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900; color: white; margin-bottom: .5rem;
+  }
+  .page-header p { font-size: .9rem; color: rgba(255,255,255,.55); }
+
+  .recursos-wrap { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  /* TABS */
+  .tabs {
+    display: flex; gap: .5rem; flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0;
+  }
+  .tab {
+    background: none; border: none; cursor: pointer;
+    font-family: var(--fs); font-size: .72rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink2); padding: .6rem 1.1rem;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: color .2s, border-color .2s;
+  }
+  .tab:hover { color: var(--navy); }
+  .tab.active { color: var(--navy); border-bottom-color: var(--gold); }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* CARD */
+  .card {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line); background: var(--white);
+    transition: border-color .2s, transform .2s;
+    overflow: hidden;
+  }
+  .card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+  .card-icon {
+    display: flex; align-items: center; justify-content: center;
+    aspect-ratio: 16/9; background: var(--navy); color: var(--gold);
+  }
+  .card-body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: .4rem; }
+  .card-badge {
+    font-size: .6rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .card-title {
+    font-family: var(--fd); font-size: 1.05rem; font-weight: 700;
+    color: var(--navy); line-height: 1.3;
+  }
+  .card-desc { font-size: .82rem; color: var(--ink2); line-height: 1.6; flex: 1; }
+  .card-fecha { font-size: .65rem; color: var(--ink2); margin-top: auto; }
+
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 4rem 0; }
+  .empty-cats {
+    display: flex; justify-content: center; gap: 3rem;
+    flex-wrap: wrap; margin-bottom: 2rem;
+  }
+  .empty-cat {
+    display: flex; flex-direction: column; align-items: center; gap: .6rem;
+    color: var(--ink2); font-size: .7rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    opacity: .4; transition: opacity .2s;
+  }
+  .empty-icon { color: var(--navy); }
+  .empty-msg { font-size: .85rem; color: var(--ink2); }
+
+  @media (max-width: 600px) {
+    .recursos-wrap { padding: 2rem 1.25rem 4rem; }
+    .tabs { gap: .25rem; }
+    .tab { font-size: .65rem; padding: .5rem .75rem; }
+    .empty-cats { gap: 2rem; }
+  }
 </style>

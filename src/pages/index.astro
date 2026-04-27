@@ -5,35 +5,67 @@ import { getCollection } from 'astro:content';
 const articulos = (await getCollection('articulos'))
   .filter(a => !a.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 6);
+  .slice(0, 3);
 
 function fecha(d: Date) {
   return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 ---
+
 <Layout>
+
+  <!-- ── HERO ── -->
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-eyebrow">javierpino.org</div>
+      <div class="eyebrow">javierpino.org</div>
       <h1>Javier Pino</h1>
-      <p class="hero-sub">Siervo de Jesucristo · Reflexiones bíblicas, teología reformada y predicación desde Neuquén, Argentina.</p>
+      <p class="hero-sub">Pastor, predicador y escritor. Reflexiones bíblicas y teología reformada desde Neuquén, Argentina.</p>
       <div class="hero-links">
-        <a href="/articulos" class="btn-primary">Ver artículos</a>
-        <a href="/podcast" class="btn-ghost">Podcast</a>
+        <a href="/articulos" class="btn-primary">Leer artículos</a>
+        <a href="/recursos" class="btn-ghost">Ver recursos</a>
       </div>
     </div>
   </section>
 
+  <!-- ── SOBRE JAVIER ── -->
+  <section class="sobre">
+    <div class="sobre-inner">
+      <div class="sobre-text">
+        <div class="section-eyebrow">Quién soy</div>
+        <h2>Un siervo de la Palabra</h2>
+        <p>Soy pastor en Neuquén, Argentina. Predico, enseño y escribo con la convicción de que la Biblia es suficiente para la vida y el ministerio. En este sitio encontrás artículos, sermones, videos y libros — todo con el mismo objetivo: que Cristo sea conocido y glorificado.</p>
+      </div>
+      <div class="sobre-nums">
+        <div class="num-item">
+          <span class="num">Artículos</span>
+          <span class="num-label">Reflexiones bíblicas y teología</span>
+        </div>
+        <div class="num-item">
+          <span class="num">Sermones</span>
+          <span class="num-label">Predicación expositiva</span>
+        </div>
+        <div class="num-item">
+          <span class="num">Libros</span>
+          <span class="num-label">Para edificación de la iglesia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ÚLTIMOS ARTÍCULOS ── -->
   {articulos.length > 0 && (
-    <section class="recientes">
-      <div class="recientes-inner">
-        <div class="section-header">
-          <h2>Artículos recientes</h2>
+    <section class="seccion">
+      <div class="seccion-inner">
+        <div class="seccion-header">
+          <div>
+            <div class="section-eyebrow">Del blog</div>
+            <h2>Artículos recientes</h2>
+          </div>
           <a href="/articulos" class="ver-todos">Ver todos →</a>
         </div>
-        <div class="grid">
+        <div class="art-grid">
           {articulos.map((art, i) => (
-            <a href={`/articulos/${art.id}`} class:list={['card', { featured: i === 0 }]}>
+            <a href={`/articulos/${art.id}`} class:list={['art-card', { featured: i === 0 }]}>
               <div class="card-cat">{art.data.categoria}</div>
               <h3 class="card-title">{art.data.title}</h3>
               {art.data.resumen && <p class="card-resumen">{art.data.resumen}</p>}
@@ -44,93 +76,188 @@ function fecha(d: Date) {
       </div>
     </section>
   )}
+
+  <!-- ── RECURSOS PREVIEW ── -->
+  <section class="recursos-preview">
+    <div class="recursos-inner">
+      <div class="seccion-header">
+        <div>
+          <div class="section-eyebrow">Contenido</div>
+          <h2>Recursos</h2>
+        </div>
+        <a href="/recursos" class="ver-todos">Ver todos →</a>
+      </div>
+      <div class="rec-grid">
+        <a href="/recursos" class="rec-card">
+          <div class="rec-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+          </div>
+          <h3>Sermones</h3>
+          <p>Predicación expositiva desde la Palabra de Dios.</p>
+        </a>
+        <a href="/recursos" class="rec-card">
+          <div class="rec-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <h3>Videos</h3>
+          <p>Conversaciones, enseñanzas y contenido del canal de YouTube.</p>
+        </a>
+        <a href="/recursos" class="rec-card">
+          <div class="rec-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+          </div>
+          <h3>Podcast</h3>
+          <p>Episodios en audio para escuchar cuando y donde quieras.</p>
+        </a>
+        <a href="/recursos" class="rec-card">
+          <div class="rec-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <h3>Libros</h3>
+          <p>Publicaciones para la edificación de la iglesia.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
   /* HERO */
   .hero {
-    background: var(--navy);
-    border-bottom: 2px solid var(--gold);
-    padding: 5rem 2rem 4rem;
+    background: var(--navy); border-bottom: 2px solid var(--gold);
+    padding: 5.5rem 2rem 4.5rem;
   }
   .hero-inner { max-width: 760px; margin: 0 auto; }
-  .hero-eyebrow {
+  .eyebrow {
     font-size: .65rem; font-weight: 700; letter-spacing: .15em;
     text-transform: uppercase; color: var(--gold-l); margin-bottom: 1.25rem;
   }
   .hero h1 {
-    font-family: var(--fd); font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 900; color: white; line-height: 1; margin-bottom: 1rem;
+    font-family: var(--fd); font-size: clamp(2.8rem, 7vw, 4.5rem);
+    font-weight: 900; color: white; line-height: 1; margin-bottom: 1.1rem;
   }
   .hero-sub {
     font-size: 1.05rem; color: rgba(255,255,255,.65);
-    line-height: 1.75; max-width: 540px; margin-bottom: 2rem;
+    line-height: 1.75; max-width: 520px; margin-bottom: 2.25rem;
   }
   .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
   .btn-primary {
     background: var(--gold); color: var(--navy);
-    padding: .75rem 1.75rem; font-size: .75rem; font-weight: 700;
+    padding: .8rem 1.9rem; font-size: .75rem; font-weight: 700;
     letter-spacing: .08em; text-transform: uppercase; transition: opacity .2s;
   }
   .btn-primary:hover { opacity: .85; }
   .btn-ghost {
     border: 1px solid rgba(255,255,255,.3); color: white;
-    padding: .75rem 1.75rem; font-size: .75rem; font-weight: 700;
-    letter-spacing: .08em; text-transform: uppercase; transition: border-color .2s;
+    padding: .8rem 1.9rem; font-size: .75rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; transition: border-color .2s, color .2s;
   }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold-l); }
 
-  /* RECIENTES */
-  .recientes { padding: 4rem 2rem; }
-  .recientes-inner { max-width: 1200px; margin: 0 auto; }
-  .section-header {
-    display: flex; align-items: baseline; justify-content: space-between;
+  /* SOBRE */
+  .sobre { background: var(--off); border-bottom: 1px solid var(--line); padding: 4rem 2rem; }
+  .sobre-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .section-eyebrow {
+    font-size: .6rem; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: .75rem;
+  }
+  .sobre h2 {
+    font-family: var(--fd); font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 900; color: var(--navy); margin-bottom: 1rem;
+  }
+  .sobre p { font-size: .9rem; color: var(--ink2); line-height: 1.8; }
+  .sobre-nums { display: flex; flex-direction: column; gap: 1.5rem; }
+  .num-item {
+    display: flex; flex-direction: column; gap: .2rem;
+    padding-left: 1.25rem; border-left: 2px solid var(--gold);
+  }
+  .num {
+    font-family: var(--fd); font-size: 1.1rem; font-weight: 700; color: var(--navy);
+  }
+  .num-label { font-size: .75rem; color: var(--ink2); }
+
+  /* SECCIÓN GENÉRICA */
+  .seccion { padding: 4rem 2rem; }
+  .seccion-inner { max-width: 1200px; margin: 0 auto; }
+  .seccion-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
     margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line);
   }
-  .section-header h2 {
+  .seccion-header h2 {
     font-family: var(--fd); font-size: 1.5rem; font-weight: 700; color: var(--navy);
   }
   .ver-todos { font-size: .72rem; font-weight: 600; color: var(--gold); letter-spacing: .05em; }
   .ver-todos:hover { color: var(--navy); }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  /* ARTÍCULOS GRID */
+  .art-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
   }
-  .card {
+  .art-card {
     display: block; padding: 1.75rem;
     border: 1px solid var(--line); background: var(--white);
     transition: border-color .2s, transform .2s;
   }
-  .card:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .card.featured {
+  .art-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .art-card.featured {
     grid-column: 1 / -1;
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-    align-items: start; background: var(--navy);
-    border-color: var(--navy);
+    align-items: start; background: var(--navy); border-color: var(--navy);
   }
   .card-cat {
     font-size: .6rem; font-weight: 700; letter-spacing: .12em;
     text-transform: uppercase; color: var(--gold); margin-bottom: .75rem;
   }
   .card-title {
-    font-family: var(--fd); font-size: 1.15rem; font-weight: 700;
+    font-family: var(--fd); font-size: 1.1rem; font-weight: 700;
     color: var(--navy); line-height: 1.25; margin-bottom: .6rem;
   }
-  .card.featured .card-title { font-size: 1.6rem; color: white; }
+  .art-card.featured .card-title { font-size: 1.5rem; color: white; }
   .card-resumen { font-size: .85rem; color: var(--ink2); line-height: 1.65; margin-bottom: 1rem; }
-  .card.featured .card-resumen { color: rgba(255,255,255,.6); }
+  .art-card.featured .card-resumen { color: rgba(255,255,255,.6); }
   .card-fecha { font-size: .65rem; color: var(--ink2); }
-  .card.featured .card-fecha { color: rgba(255,255,255,.4); }
+  .art-card.featured .card-fecha { color: rgba(255,255,255,.4); }
 
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr 1fr; }
-    .card.featured { grid-column: 1 / -1; grid-template-columns: 1fr; }
+  /* RECURSOS PREVIEW */
+  .recursos-preview { background: var(--off); padding: 4rem 2rem 5rem; }
+  .recursos-inner { max-width: 1200px; margin: 0 auto; }
+  .rec-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+  }
+  .rec-card {
+    display: flex; flex-direction: column; gap: .75rem;
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--line); background: var(--white);
+    transition: border-color .2s, transform .2s;
+  }
+  .rec-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .rec-icon { color: var(--navy); margin-bottom: .25rem; }
+  .rec-card h3 {
+    font-family: var(--fd); font-size: 1rem; font-weight: 700; color: var(--navy);
+  }
+  .rec-card p { font-size: .8rem; color: var(--ink2); line-height: 1.6; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1000px) {
+    .rec-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 860px) {
+    .sobre-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .art-grid { grid-template-columns: 1fr 1fr; }
+    .art-card.featured { grid-column: 1 / -1; grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
-    .grid { grid-template-columns: 1fr; }
-    .hero { padding: 3.5rem 1.25rem 3rem; }
-    .recientes { padding: 3rem 1.25rem; }
+    .hero { padding: 4rem 1.25rem 3.5rem; }
+    .sobre, .seccion, .recursos-preview { padding: 3rem 1.25rem; }
+    .art-grid { grid-template-columns: 1fr; }
+    .rec-grid { grid-template-columns: 1fr 1fr; }
+    .seccion-header { flex-direction: column; align-items: flex-start; gap: .75rem; }
+  }
+  @media (max-width: 400px) {
+    .rec-grid { grid-template-columns: 1fr; }
   }
 </style>

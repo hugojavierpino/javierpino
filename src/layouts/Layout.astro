@@ -27,7 +27,6 @@ const path = Astro.url.pathname;
       </a>
       <nav class="nav">
         <a href="/articulos" class:list={['nav-link', { active: path.startsWith('/articulos') }]}>Artículos</a>
-        <a href="/podcast" class:list={['nav-link', { active: path.startsWith('/podcast') }]}>Podcast</a>
         <a href="/recursos" class:list={['nav-link', { active: path.startsWith('/recursos') }]}>Recursos</a>
       </nav>
       <button class="menu-btn" id="menu-btn" aria-label="Menú">
@@ -36,7 +35,6 @@ const path = Astro.url.pathname;
     </div>
     <nav class="mobile-nav" id="mobile-nav">
       <a href="/articulos" class="mobile-link">Artículos</a>
-      <a href="/podcast" class="mobile-link">Podcast</a>
       <a href="/recursos" class="mobile-link">Recursos</a>
     </nav>
   </header>
