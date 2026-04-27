@@ -3,7 +3,7 @@ interface Props {
   title?: string;
   description?: string;
 }
-const { title = 'Javier Pino', description = 'Siervo de Jesucristo' } = Astro.props;
+const { title = 'JP | Siervo de Jesucristo', description = 'Siervo de Jesucristo' } = Astro.props;
 const path = Astro.url.pathname;
 ---
 <!doctype html>
@@ -11,7 +11,7 @@ const path = Astro.url.pathname;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title === 'Javier Pino' ? title : `${title} — Javier Pino`}</title>
+  <title>{title === 'JP | Siervo de Jesucristo' ? title : `${title} — Javier Pino`}</title>
   <meta name="description" content={description} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
