@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Sobre mí" description="Pastor, predicador y estudiante de teología. Hugo Javier Pino — Iglesia Bautista Reformada de Neuquén, Argentina.">
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="eyebrow">javierpino.org</div>
+      <h1>Sobre mí</h1>
+      <p>Hugo Javier Pino</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="bio">
+      <p>Pastor, predicador y estudiante de teología, dedicado a la enseñanza fiel de las Escrituras. Soy pastor en la Iglesia Bautista Reformada de Neuquén, Argentina, y curso una Licenciatura en Divinidades en el Covenant Baptist Theological Seminary en español.</p>
+      <p>Esposo, padre y abuelo — encuentro mi mayor alegría en la familia y en el ministerio. A través de este espacio comparto recursos bíblicos y reflexiones con el objetivo de ayudar a otros a profundizar en su relación con Dios.</p>
+    </div>
+
+    <div class="datos">
+      <div class="dato">
+        <span class="dato-label">Iglesia</span>
+        <span class="dato-val">Iglesia Bautista Reformada de Neuquén</span>
+      </div>
+      <div class="dato">
+        <span class="dato-label">Formación</span>
+        <span class="dato-val">Licenciatura en Divinidades — Covenant Baptist Theological Seminary</span>
+      </div>
+      <div class="dato">
+        <span class="dato-label">Ubicación</span>
+        <span class="dato-val">Neuquén, Argentina</span>
+      </div>
+    </div>
+
+    <div class="ctas">
+      <a href="/articulos" class="btn-primary">Leer artículos</a>
+      <a href="/recursos" class="btn-ghost">Ver recursos</a>
+    </div>
+  </div>
+
+</Layout>
+
+<style>
+  .page-header {
+    background: var(--navy); border-bottom: 2px solid var(--gold);
+    padding: 3.5rem 2rem 2.5rem;
+  }
+  .page-header-inner { max-width: 760px; margin: 0 auto; }
+  .eyebrow {
+    font-size: .6rem; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--gold-l); margin-bottom: .75rem;
+  }
+  h1 {
+    font-family: var(--fd); font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900; color: white; margin-bottom: .4rem;
+  }
+  .page-header p { font-size: .9rem; color: rgba(255,255,255,.55); }
+
+  .content {
+    max-width: 680px; margin: 0 auto; padding: 4rem 2rem 5rem;
+  }
+
+  .bio { margin-bottom: 3rem; }
+  .bio p {
+    font-size: 1.05rem; color: var(--ink); line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+  .bio p:last-child { margin-bottom: 0; }
+
+  .datos {
+    border-top: 1px solid var(--line);
+    padding-top: 2rem; margin-bottom: 3rem;
+    display: flex; flex-direction: column; gap: 1.1rem;
+  }
+  .dato {
+    display: grid; grid-template-columns: 120px 1fr; gap: 1rem; align-items: baseline;
+  }
+  .dato-label {
+    font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .dato-val { font-size: .9rem; color: var(--ink2); line-height: 1.5; }
+
+  .ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: .75rem 1.75rem; font-size: .75rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: .85; }
+  .btn-ghost {
+    border: 1px solid var(--line); color: var(--ink);
+    padding: .75rem 1.75rem; font-size: .75rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; transition: border-color .2s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--navy); }
+
+  @media (max-width: 600px) {
+    .content { padding: 3rem 1.25rem 4rem; }
+    .dato { grid-template-columns: 1fr; gap: .2rem; }
+  }
+</style>
