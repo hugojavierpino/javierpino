@@ -6,9 +6,9 @@ serie: "Antes de predicar"
 resumen: "Hablar bien no te hace predicador. Antes que subir a un púlpito hay un requisito que Dios establece y que no es negociable. ¿Lo conocés?"
 ---
 
-Sin duda, muchas personas tienen la capacidad y el talento de hablar en público con mucha facilidad, sin temores ni pánico escénico; incluso algunos han logrado dominarlo con el tiempo. La elocuencia, la capacidad de dar un discurso sobre cualquier tema y el uso de técnicas de oratoria hacen que alguien que era tímido por naturaleza ---o que le daba miedo hablar en la época del secundario al presentar una lección ante sus compañeros--- termine siendo un gran conferencista. ¿Y qué se necesita para lograrlo? Tener voz, un tema para exponer y la capacidad de transformar esas ideas en palabras, de manera que quien lo escuche sienta armonía en ellas y se detenga a escucharlo. Por lo tanto, la máxima sería: cualquiera puede hablar en público e impactar con su exposición. Ese es el caso de los *showmen*, los comediantes de *stand-up* o los *storytellers*. Todos tienen algo que decir y generan efectos en su audiencia.
+Sin duda, muchas personas tienen la capacidad y el talento de hablar en público con mucha facilidad, sin temores ni pánico escénico; incluso algunos han logrado dominarlo con el tiempo. La elocuencia, la capacidad de dar un discurso sobre cualquier tema y el uso de técnicas de oratoria hacen que alguien que era tímido por naturaleza, o que le daba miedo hablar en la época del secundario al presentar una lección ante sus compañeros, termine siendo un gran conferencista. ¿Y qué se necesita para lograrlo? Tener voz, un tema para exponer y la capacidad de transformar esas ideas en palabras, de manera que quien lo escuche sienta armonía en ellas y se detenga a escucharlo. Por lo tanto, la máxima sería: cualquiera puede hablar en público e impactar con su exposición. Ese es el caso de los *showmen*, los comediantes de *stand-up* o los *storytellers*. Todos tienen algo que decir y generan efectos en su audiencia.
 
-Ahora bien, ¿estas personas ---profesionales de la oratoria y el manejo de público--- estarían más capacitadas para cubrir la vacante de predicador en una iglesia que algunos hermanos? Saben hablar, aprenden el guion o discurso, y ya estarían listos para debutar el domingo por la mañana. ¿Será tan así?
+Ahora bien, ¿estas personas, profesionales de la oratoria y el manejo de público, estarían más capacitadas para cubrir la vacante de predicador en una iglesia que algunos hermanos? Saben hablar, aprenden el guion o discurso, y ya estarían listos para debutar el domingo por la mañana. ¿Será tan así?
 
 Si la iglesia tiene necesidad de predicadores, podríamos publicar un aviso: *"Se necesitan predicadores para iglesia: se buscan preferentemente oradores motivacionales, comediantes de stand-up o storytellers. Trabaja una hora por semana, los domingos. Excelente remuneración. Presentar CV en la secretaría de la iglesia."*
 
@@ -39,7 +39,7 @@ Pero el peligro no es solo tuyo. La congregación que te escucha también paga e
 
 El que no nació de nuevo no es neutral. No existe la neutralidad en el reino espiritual: o estás con Dios o estás contra Él. Por tanto, aquel que ocupa el púlpito sin haber nacido de nuevo no viene de parte de Dios, viene de parte de su enemigo.
 
-Sus palabras no serán ungidas, porque de la abundancia del corazón habla la boca. Y un corazón muerto no puede dar vida. Al principio puede sonar amigable, cercano, hasta convincente. Pero como la humedad detrás de la pared, con el tiempo se manifiesta. No podés ocultarla para siempre. Sale.
+Sus palabras no serán ungidas, porque de la abundancia del corazón habla la boca. Y un corazón muerto no puede dar vida. Al principio puede sonar amigable, cercano, hasta convincente. Pero como la humedad detrás de la pared, con el tiempo se manifiesta. No podés ocultarla para siempre.
 
 Como el villano en una película, tarde o temprano muestra de qué espíritu es.
 
@@ -49,4 +49,4 @@ Recuerda: si considerás predicar, primero considerá algo vital: nacer de nuevo
 
 *Antes que predicar, ¡nacer de nuevo!*
 
-*Soli Deo Gloria.*
+Hasta la próxima. SDG!
